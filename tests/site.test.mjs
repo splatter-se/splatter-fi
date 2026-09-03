@@ -4,6 +4,7 @@ import test from "node:test";
 
 const page = await readFile(new URL("../src/pages/index.astro", import.meta.url), "utf8");
 const css = await readFile(new URL("../src/styles/global.css", import.meta.url), "utf8");
+const robots = await readFile(new URL("../public/robots.txt", import.meta.url), "utf8");
 
 test("uses the intended Finland launch message", () => {
   assert.match(page, /Kauhu saapuu/);
@@ -11,9 +12,11 @@ test("uses the intended Finland launch message", () => {
   assert.doesNotMatch(page, /snart i Sverige/i);
 });
 
-test("requires email and explicit consent", () => {
+test("requires email and the real Mailchimp consent field", () => {
   assert.match(page, /name="EMAIL"[\s\S]*?required/);
-  assert.match(page, /name="splatter_fi_consent"[\s\S]*?required/);
+  assert.match(page, /name=\{mailchimpConsentName\}[\s\S]*?required/);
+  assert.match(page, /const signupReady = Boolean/);
+  assert.doesNotMatch(page, /novalidate/);
 });
 
 test("preserves Splatter brand tokens", () => {
@@ -26,4 +29,8 @@ test("ships Finnish SEO and privacy copy", () => {
   assert.match(page, /<html lang="fi">/);
   assert.match(page, /Tietosuojaseloste/);
   assert.match(page, /Niche en scène AB/);
+});
+
+test("does not advertise a sitemap that does not exist", () => {
+  assert.doesNotMatch(robots, /Sitemap:/i);
 });

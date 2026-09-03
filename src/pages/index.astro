@@ -1,12 +1,16 @@
 ---
 import "../styles/global.css";
 
-const mailchimpAction =
-  import.meta.env.PUBLIC_MAILCHIMP_ACTION ||
-  "https://mc.us11.list-manage.com/subscribe/landing-page?u=f1b3f0a0772f245a6b8f167e5&id=da9f94ebd6&f_id=00b5d5e3f0";
+const mailchimpAction = import.meta.env.PUBLIC_MAILCHIMP_ACTION || "";
+const mailchimpConsentName = import.meta.env.PUBLIC_MAILCHIMP_CONSENT_NAME || "";
+const mailchimpConsentValue = import.meta.env.PUBLIC_MAILCHIMP_CONSENT_VALUE || "";
+const mailchimpHoneypotName = import.meta.env.PUBLIC_MAILCHIMP_HONEYPOT_NAME || "";
 const mailchimpGroupName = import.meta.env.PUBLIC_MAILCHIMP_GROUP_NAME || "";
 const mailchimpGroupValue = import.meta.env.PUBLIC_MAILCHIMP_GROUP_VALUE || "";
 const hasFinlandGroup = Boolean(mailchimpGroupName && mailchimpGroupValue);
+const signupReady = Boolean(
+  mailchimpAction && mailchimpConsentName && mailchimpConsentValue && mailchimpHoneypotName,
+);
 
 const title = "Splatter Suomi — kauhun suoratoistopalvelu saapuu Suomeen";
 const description =
@@ -54,7 +58,7 @@ const description =
     })}></script>
   </head>
   <body>
-    <a class="skip-link" href="#ilmoitus">Siirry ilmoittautumiseen</a>
+    <a class="skip-link" href="#signup-form">Siirry ilmoittautumiseen</a>
 
     <div class="page-shell">
       <header class="site-header" aria-label="Ylätunniste">
@@ -106,12 +110,14 @@ const description =
               </p>
 
               <form
+                id="signup-form"
                 class="signup-form"
-                action={mailchimpAction}
+                action={signupReady ? mailchimpAction : undefined}
                 method="post"
                 enctype="multipart/form-data"
                 data-signup-form
-                novalidate
+                data-signup-ready={String(signupReady)}
+                tabindex="-1"
               >
                 <div class="field">
                   <label for="mce-EMAIL">Sähköpostiosoitteesi</label>
@@ -136,7 +142,7 @@ const description =
                   <label for="b_f1b3f0a0772f245a6b8f167e5_727687">Jätä tämä kenttä tyhjäksi</label>
                   <input
                     id="b_f1b3f0a0772f245a6b8f167e5_727687"
-                    name="b_f1b3f0a0772f245a6b8f167e5_727687"
+                    name={mailchimpHoneypotName}
                     type="text"
                     tabindex="-1"
                     autocomplete="off"
@@ -148,27 +154,31 @@ const description =
                 <div class="consent-field">
                   <input
                     id="consent"
-                    name="splatter_fi_consent"
+                    name={mailchimpConsentName}
                     type="checkbox"
-                    value="accepted"
+                    value={mailchimpConsentValue}
                     required
+                    disabled={!signupReady}
                     aria-describedby="consent-error"
                   />
                   <label for="consent">
-                    Hyväksyn, että Splatter tallentaa sähköpostiosoitteeni ja lähettää
-                    minulle tiedon Suomen-julkaisusta. Voin peruuttaa suostumukseni milloin tahansa.
+                    Hyväksyn, että Splatter / Niche en scène AB tallentaa sähköpostiosoitteeni
+                    ja lähettää minulle tietoa Splatterin Suomen-lanseerauksesta. Voin peruuttaa
+                    suostumukseni milloin tahansa.
                   </label>
                 </div>
                 <p class="field-error" id="consent-error" data-consent-error aria-live="polite"></p>
 
-                <button class="submit-button" type="submit">
-                  <span>Ilmoita minulle</span>
+                <button class="submit-button" type="submit" disabled={!signupReady}>
+                  <span>{signupReady ? "Ilmoita minulle" : "Ilmoittautuminen avautuu pian"}</span>
                   <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
                     <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" />
                   </svg>
                 </button>
                 <p class="form-note">
-                  Seuraavassa vaiheessa vahvistat osoitteesi Mailchimpin turvallisella sivulla.
+                  {signupReady
+                    ? "Seuraavassa vaiheessa vahvistat osoitteesi Mailchimpin turvallisella sivulla."
+                    : "Viimeistelemme parhaillaan Suomen ilmoittautumislistaa."}
                 </p>
               </form>
             </aside>
@@ -184,8 +194,8 @@ const description =
           <div class="about-body">
             <p>
               Splatter on ruotsalainen suoratoistopalvelu kauhulle, trillereille ja
-              kulttielokuville. Todelliset kauhun ystävät valitsevat kirjaston
-              käsin — kuolemattomista klassikoista uusiin, synkkiin genren helmiin.
+              kulttielokuville. Kirjasto on koottu käsin todellisille kauhun
+              ystäville — kuolemattomista klassikoista uusiin, synkkiin genren helmiin.
             </p>
             <p class="launch-note"><span aria-hidden="true">→</span> Pian myös Suomessa.</p>
           </div>
@@ -214,8 +224,8 @@ const description =
       <div class="dialog-copy">
         <p>
           Rekisterinpitäjä on Niche en scène AB (org.nr 559449-3511). Käsittelemme
-          sähköpostiosoitettasi suostumuksellasi vain ilmoittaaksemme Splattersin
-          Suomen-julkaisusta.
+          sähköpostiosoitettasi suostumuksellasi vain ilmoittaaksemme Splatterin
+          Suomen-lanseerauksesta.
         </p>
         <p>
           Osoite säilytetään Mailchimpissä julkaisuun ja ilmoituksen lähettämiseen
@@ -238,34 +248,21 @@ const description =
       const emailError = document.querySelector("[data-email-error]");
       const consentError = document.querySelector("[data-consent-error]");
 
-      form?.addEventListener("submit", (event) => {
-        let valid = true;
-        if (!(email instanceof HTMLInputElement) || !email.validity.valid) {
-          event.preventDefault();
+      email?.addEventListener("invalid", () => {
+        if (email instanceof HTMLInputElement) {
           email?.setAttribute("aria-invalid", "true");
           if (emailError) emailError.textContent = "Anna toimiva sähköpostiosoite.";
-          valid = false;
-        } else {
-          email.removeAttribute("aria-invalid");
-          if (emailError) emailError.textContent = "";
         }
+      });
 
-        if (!(consent instanceof HTMLInputElement) || !consent.checked) {
-          event.preventDefault();
+      consent?.addEventListener("invalid", () => {
+        if (consent instanceof HTMLInputElement) {
           consent?.setAttribute("aria-invalid", "true");
           if (consentError) consentError.textContent = "Hyväksy tietojen käsittely jatkaaksesi.";
-          valid = false;
-        } else {
-          consent.removeAttribute("aria-invalid");
-          if (consentError) consentError.textContent = "";
         }
+      });
 
-        if (!valid) {
-          const firstInvalid = email?.getAttribute("aria-invalid") ? email : consent;
-          if (firstInvalid instanceof HTMLElement) firstInvalid.focus();
-          return;
-        }
-
+      form?.addEventListener("submit", () => {
         const button = form.querySelector("button[type='submit']");
         if (button instanceof HTMLButtonElement) {
           button.disabled = true;
@@ -283,16 +280,24 @@ const description =
       });
 
       const dialog = document.querySelector("[data-privacy-dialog]");
-      document.querySelector("[data-open-privacy]")?.addEventListener("click", () => {
-        if (dialog instanceof HTMLDialogElement) dialog.showModal();
+      const privacyTrigger = document.querySelector("[data-open-privacy]");
+      const closePrivacy = () => {
+        if (!(dialog instanceof HTMLDialogElement)) return;
+        if (typeof dialog.close === "function" && dialog.open) dialog.close();
+        else dialog.removeAttribute("open");
+        if (privacyTrigger instanceof HTMLElement) privacyTrigger.focus();
+      };
+
+      privacyTrigger?.addEventListener("click", () => {
+        if (!(dialog instanceof HTMLDialogElement)) return;
+        if (typeof dialog.showModal === "function") dialog.showModal();
+        else dialog.setAttribute("open", "");
       });
       document.querySelectorAll("[data-close-privacy]").forEach((button) => {
-        button.addEventListener("click", () => {
-          if (dialog instanceof HTMLDialogElement) dialog.close();
-        });
+        button.addEventListener("click", closePrivacy);
       });
       dialog?.addEventListener("click", (event) => {
-        if (event.target === dialog && dialog instanceof HTMLDialogElement) dialog.close();
+        if (event.target === dialog) closePrivacy();
       });
     </script>
   </body>
