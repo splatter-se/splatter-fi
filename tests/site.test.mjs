@@ -33,6 +33,13 @@ test("preserves Splatter brand tokens", () => {
   assert.match(css, /font-family:\s*"Unbounded"/);
 });
 
+test("uses the responsive production poster wall in the hero", () => {
+  assert.match(page, /hero-poster-wall-960x540\.webp 960w/);
+  assert.match(page, /hero-poster-wall-1920x1080\.webp 1920w/);
+  assert.match(page, /hero-poster-wall-3840x2160\.webp 3840w/);
+  assert.match(page, /sizes="100vw"/);
+});
+
 test("ships Finnish SEO and privacy copy", () => {
   assert.match(page, /<html lang="fi">/);
   assert.match(page, /Tietosuojaseloste/);
