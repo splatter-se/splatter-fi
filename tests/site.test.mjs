@@ -5,6 +5,7 @@ import test from "node:test";
 const page = await readFile(new URL("../src/pages/index.astro", import.meta.url), "utf8");
 const css = await readFile(new URL("../src/styles/global.css", import.meta.url), "utf8");
 const robots = await readFile(new URL("../public/robots.txt", import.meta.url), "utf8");
+const productionEnv = await readFile(new URL("../.env.production", import.meta.url), "utf8");
 
 test("uses the intended Finland launch message", () => {
   assert.match(page, /Kauhu saapuu/);
@@ -17,6 +18,13 @@ test("requires email and the real Mailchimp consent field", () => {
   assert.match(page, /name=\{mailchimpConsentName\}[\s\S]*?required/);
   assert.match(page, /const signupReady = Boolean/);
   assert.doesNotMatch(page, /novalidate/);
+});
+
+test("ships the Finland form, tag and consent configuration", () => {
+  assert.match(productionEnv, /PUBLIC_MAILCHIMP_ACTION=https:\/\/splatter\.us11\.list-manage\.com/);
+  assert.match(productionEnv, /PUBLIC_MAILCHIMP_CONSENT_NAME=FICONSENT/);
+  assert.match(productionEnv, /PUBLIC_MAILCHIMP_TAG_ID=10285197/);
+  assert.match(page, /name="tags" value=\{mailchimpTagId\}/);
 });
 
 test("preserves Splatter brand tokens", () => {

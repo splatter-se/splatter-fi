@@ -5,11 +5,13 @@ const mailchimpAction = import.meta.env.PUBLIC_MAILCHIMP_ACTION || "";
 const mailchimpConsentName = import.meta.env.PUBLIC_MAILCHIMP_CONSENT_NAME || "";
 const mailchimpConsentValue = import.meta.env.PUBLIC_MAILCHIMP_CONSENT_VALUE || "";
 const mailchimpHoneypotName = import.meta.env.PUBLIC_MAILCHIMP_HONEYPOT_NAME || "";
-const mailchimpGroupName = import.meta.env.PUBLIC_MAILCHIMP_GROUP_NAME || "";
-const mailchimpGroupValue = import.meta.env.PUBLIC_MAILCHIMP_GROUP_VALUE || "";
-const hasFinlandGroup = Boolean(mailchimpGroupName && mailchimpGroupValue);
+const mailchimpTagId = import.meta.env.PUBLIC_MAILCHIMP_TAG_ID || "";
 const signupReady = Boolean(
-  mailchimpAction && mailchimpConsentName && mailchimpConsentValue && mailchimpHoneypotName,
+  mailchimpAction &&
+    mailchimpConsentName &&
+    mailchimpConsentValue &&
+    mailchimpHoneypotName &&
+    mailchimpTagId,
 );
 
 const title = "Splatter Suomi — kauhun suoratoistopalvelu saapuu Suomeen";
@@ -135,9 +137,7 @@ const description =
                   <p class="field-error" id="email-error" data-email-error aria-live="polite"></p>
                 </div>
 
-                {hasFinlandGroup && (
-                  <input type="hidden" name={mailchimpGroupName} value={mailchimpGroupValue} />
-                )}
+                <input type="hidden" name="tags" value={mailchimpTagId} />
                 <div class="hp-field" aria-hidden="true">
                   <label for="b_f1b3f0a0772f245a6b8f167e5_727687">Jätä tämä kenttä tyhjäksi</label>
                   <input
@@ -177,7 +177,7 @@ const description =
                 </button>
                 <p class="form-note">
                   {signupReady
-                    ? "Seuraavassa vaiheessa vahvistat osoitteesi Mailchimpin turvallisella sivulla."
+                    ? "Osoitteesi tallennetaan turvallisesti Suomen lanseerausilmoitusta varten."
                     : "Viimeistelemme parhaillaan Suomen ilmoittautumislistaa."}
                 </p>
               </form>
@@ -266,7 +266,7 @@ const description =
         const button = form.querySelector("button[type='submit']");
         if (button instanceof HTMLButtonElement) {
           button.disabled = true;
-          button.querySelector("span")!.textContent = "Avataan vahvistus…";
+          button.querySelector("span")!.textContent = "Tallennetaan…";
         }
       });
 

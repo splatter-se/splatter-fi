@@ -26,13 +26,17 @@ Valmis one.com-paketti syntyy tiedostoon `onecom-bundle.zip`.
 
 Ennen julkaisua Mailchimpissä pitää:
 
-1. luoda Suomen lanseerauslista tai piilotettu ryhmä `Market / Finland launch`,
-2. ottaa double opt-in ja reCAPTCHA käyttöön,
-3. kääntää vahvistus- ja kiitossivut suomeksi,
-4. kopioida embed-koodin form action, GDPR-valintaruudun nimi ja bottiloukun nimi
+1. luoda erillinen upotettu lomake ja automaattinen `Finland launch` -tagi,
+2. luoda `FICONSENT`-yleisökenttä suostumuksen version tallentamista varten,
+3. kopioida embed-koodin form action, tagin tunniste ja bottiloukun nimi
    vastaaviin `PUBLIC_MAILCHIMP_*`-ympäristömuuttujiin,
-5. täyttää ryhmäkentän nimi ja arvo vain, jos käytössä on sama yleisö ja piilotettu ryhmä,
-6. rakentaa sivu uudelleen ja tarkistaa testiliittyminen.
+4. rakentaa sivu uudelleen ja tarkistaa testiliittyminen.
+
+Tuotantoarvot ovat julkisia lomaketunnisteita, eivät API-avaimia. Nykyinen
+Mailchimp-yleisö käyttää single opt-inia, jotta tämän lomakkeen käyttöönotto ei
+muuta olemassa olevien ruotsalaisten lomakkeiden vahvistuspolkua. Pakollinen
+suostumus tallennetaan `FICONSENT`-kenttään ja liittymiset saavat automaattisesti
+`Finland launch` -tagin.
 
 Mailchimp API -avainta ei koskaan tarvita selaimessa eikä tähän repoon pidä
 lisätä salaisuuksia.
