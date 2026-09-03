@@ -41,8 +41,11 @@ suostumus tallennetaan `FICONSENT`-kenttään ja liittymiset saavat automaattise
 Mailchimp API -avainta ei koskaan tarvita selaimessa eikä tähän repoon pidä
 lisätä salaisuuksia.
 
-## one.com
+## Publicering
 
-Lataa `dist/`-hakemiston sisältö (ei itse hakemistoa) splatter.fi:n
-dokumenttijuureen File Managerissa. `.htaccess` pakottaa HTTPS:n ja apex-osoitteen
-kanoniseksi sekä lisää tärkeimmät tietoturvaotsakkeet.
+Sivu julkaistaan GitHub Pagesissa `.github/workflows/deploy-pages.yml`-työn avulla.
+`splatter.fi` pysyy rekisteröitynä one.comissa, jossa apex-DNS osoittaa GitHub
+Pagesin A-tietueisiin ja `www` CNAME-tietueella osoitteeseen `splatter-se.github.io`.
+
+`npm run deploy:bundle` tuottaa lisäksi `onecom-bundle.zip`-paketin siltä varalta,
+että domainiin lisätään myöhemmin one.com-webbhotelli.
