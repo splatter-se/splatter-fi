@@ -1,57 +1,47 @@
 ---
+import PrivacyDialog from "../components/PrivacyDialog.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { fi } from "../content/fi";
+import { mailchimpConfig, signupReady } from "../config/site";
 import "../styles/global.css";
 
-const mailchimpAction = import.meta.env.PUBLIC_MAILCHIMP_ACTION || "";
-const mailchimpConsentName = import.meta.env.PUBLIC_MAILCHIMP_CONSENT_NAME || "";
-const mailchimpConsentValue = import.meta.env.PUBLIC_MAILCHIMP_CONSENT_VALUE || "";
-const mailchimpHoneypotName = import.meta.env.PUBLIC_MAILCHIMP_HONEYPOT_NAME || "";
-const mailchimpTagId = import.meta.env.PUBLIC_MAILCHIMP_TAG_ID || "";
-const signupReady = Boolean(
-  mailchimpAction &&
-    mailchimpConsentName &&
-    mailchimpConsentValue &&
-    mailchimpHoneypotName &&
-    mailchimpTagId,
+const attributionFields = Object.entries(mailchimpConfig.attributionFields).filter(
+  ([, fieldName]) => Boolean(fieldName),
 );
-
-const title = "Splatter Suomi — kauhun suoratoistopalvelu saapuu Suomeen";
-const description =
-  "Splatter on Ruotsin johtava kauhun, trillerien ja kulttielokuvien suoratoistopalvelu. Jätä sähköpostiosoitteesi, niin ilmoitamme kun Splatter saapuu Suomeen.";
 ---
 
 <!doctype html>
-<html lang="fi">
+<html lang="fi-FI">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title>{fi.meta.homeTitle}</title>
+    <meta name="description" content={fi.meta.homeDescription} />
     <meta name="theme-color" content="#080708" />
     <meta name="color-scheme" content="dark" />
     <link rel="canonical" href="https://splatter.fi/" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fi_FI" />
     <meta property="og:site_name" content="Splatter" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={fi.meta.homeTitle} />
+    <meta property="og:description" content={fi.meta.homeDescription} />
     <meta property="og:url" content="https://splatter.fi/" />
     <meta property="og:image" content="https://splatter.fi/brand/splatter-og-1200x630.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Valikoima Splatters kauhu- ja kulttielokuvia" />
+    <meta property="og:image:alt" content={fi.meta.socialImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
-
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
       name: "Splatter Suomi",
       url: "https://splatter.fi/",
       inLanguage: "fi-FI",
-      description,
+      description: fi.meta.homeDescription,
       publisher: {
         "@type": "Organization",
         name: "Niche en scène AB",
@@ -60,19 +50,9 @@ const description =
     })}></script>
   </head>
   <body>
-    <a class="skip-link" href="#signup-form">Siirry ilmoittautumiseen</a>
-
+    <a class="skip-link" href="#signup-form">{fi.landing.skip}</a>
     <div class="page-shell">
-      <header class="site-header" aria-label="Ylätunniste">
-        <a class="brand" href="/" aria-label="Splatter Suomi — etusivu">
-          <img src="/brand/splatter-logo.svg" width="140" height="50" alt="Splatter" />
-        </a>
-        <span class="market" aria-label="Suomen sivusto">
-          <span class="market-dot" aria-hidden="true"></span>
-          Suomi / FI
-        </span>
-      </header>
-
+      <SiteHeader />
       <main>
         <section class="hero" aria-labelledby="hero-title">
           <div class="hero-art" aria-hidden="true">
@@ -89,34 +69,25 @@ const description =
           </div>
           <div class="hero-scrim" aria-hidden="true"></div>
           <div class="grain" aria-hidden="true"></div>
-
           <div class="hero-inner">
             <div class="hero-copy">
-              <p class="eyebrow"><span aria-hidden="true"></span>Pian Suomessa</p>
-              <h1 id="hero-title">Kauhu saapuu<br />Suomeen.</h1>
-              <p class="hero-lede">
-                Splatter on Ruotsin johtava kauhun, trillerien ja kulttielokuvien
-                suoratoistopalvelu — nyt pian myös Suomessa.
-              </p>
-              <ul class="genre-list" aria-label="Splatters elokuvavalikoima">
-                <li>Kauhu</li>
-                <li>Trillerit</li>
-                <li>Kulttielokuvat</li>
+              <p class="eyebrow"><span aria-hidden="true"></span>{fi.landing.eyebrow}</p>
+              <h1 id="hero-title">
+                {fi.landing.headingBeforeBreak}<br />{fi.landing.headingAfterBreak}
+              </h1>
+              <p class="hero-lede">{fi.landing.lede}</p>
+              <ul class="genre-list" aria-label={fi.landing.genresLabel}>
+                {fi.landing.genres.map((genre) => <li>{genre}</li>)}
               </ul>
             </div>
-
             <aside class="signup-card" id="ilmoitus" aria-labelledby="signup-title">
-              <p class="card-kicker">Ensimmäisten joukossa</p>
-              <h2 id="signup-title">Ilmoita minulle, kun Splatter saapuu Suomeen.</h2>
-              <p class="card-copy">
-                Jätä sähköpostiosoitteesi. Lähetämme sinulle yhden ilmoituksen,
-                kun palvelu on saatavilla Suomessa.
-              </p>
-
+              <p class="card-kicker">{fi.landing.cardKicker}</p>
+              <h2 id="signup-title">{fi.landing.formHeading}</h2>
+              <p class="card-copy">{fi.landing.formDescription}</p>
               <form
                 id="signup-form"
                 class="signup-form"
-                action={signupReady ? mailchimpAction : undefined}
+                action={signupReady ? mailchimpConfig.action : undefined}
                 method="post"
                 enctype="multipart/form-data"
                 data-signup-form
@@ -124,27 +95,29 @@ const description =
                 tabindex="-1"
               >
                 <div class="field">
-                  <label for="mce-EMAIL">Sähköpostiosoitteesi</label>
+                  <label for="mce-EMAIL">{fi.landing.emailLabel}</label>
                   <input
                     id="mce-EMAIL"
                     name="EMAIL"
                     type="email"
                     inputmode="email"
                     autocomplete="email"
-                    placeholder="sinä@esimerkki.fi"
+                    placeholder={fi.landing.emailPlaceholder}
                     maxlength="254"
                     required
                     aria-describedby="email-error"
                   />
                   <p class="field-error" id="email-error" data-email-error aria-live="polite"></p>
                 </div>
-
-                <input type="hidden" name="tags" value={mailchimpTagId} />
+                <input type="hidden" name="tags" value={mailchimpConfig.tagId} />
+                {attributionFields.map(([key, name]) => (
+                  <input type="hidden" name={name} value="" data-attribution-field={key} />
+                ))}
                 <div class="hp-field" aria-hidden="true">
-                  <label for="b_f1b3f0a0772f245a6b8f167e5_727687">Jätä tämä kenttä tyhjäksi</label>
+                  <label for="mailchimp-honeypot">{fi.landing.honeypotLabel}</label>
                   <input
-                    id="b_f1b3f0a0772f245a6b8f167e5_727687"
-                    name={mailchimpHoneypotName}
+                    id="mailchimp-honeypot"
+                    name={mailchimpConfig.honeypotName}
                     type="text"
                     tabindex="-1"
                     autocomplete="off"
@@ -152,155 +125,64 @@ const description =
                   />
                 </div>
                 <input type="hidden" name="ht" value="" />
-
                 <div class="consent-field">
                   <input
                     id="consent"
-                    name={mailchimpConsentName}
+                    name={mailchimpConfig.consentName}
                     type="checkbox"
-                    value={mailchimpConsentValue}
+                    value={mailchimpConfig.consentValue}
                     required
                     disabled={!signupReady}
                     aria-describedby="consent-error"
                   />
-                  <label for="consent">
-                    Hyväksyn, että Splatter / Niche en scène AB tallentaa sähköpostiosoitteeni
-                    ja lähettää minulle tietoa Splatterin Suomen-lanseerauksesta. Voin peruuttaa
-                    suostumukseni milloin tahansa.
-                  </label>
+                  <label for="consent">{fi.landing.consent}</label>
                 </div>
                 <p class="field-error" id="consent-error" data-consent-error aria-live="polite"></p>
-
                 <button class="submit-button" type="submit" disabled={!signupReady}>
-                  <span>{signupReady ? "Ilmoita minulle" : "Ilmoittautuminen avautuu pian"}</span>
+                  <span>{signupReady ? fi.landing.submit : fi.landing.unavailable}</span>
                   <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-                    <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" />
+                    <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"></path>
                   </svg>
                 </button>
                 <p class="form-note">
-                  {signupReady
-                    ? "Osoitteesi tallennetaan turvallisesti Suomen lanseerausilmoitusta varten."
-                    : "Viimeistelemme parhaillaan Suomen ilmoittautumislistaa."}
+                  {signupReady ? fi.landing.formNote : fi.landing.formUnavailable}
                 </p>
               </form>
             </aside>
           </div>
         </section>
-
         <section class="about" aria-labelledby="about-title">
           <div class="about-number" aria-hidden="true">01</div>
           <div class="about-copy">
-            <p class="eyebrow"><span aria-hidden="true"></span>Mikä Splatter?</p>
-            <h2 id="about-title">Kauhua heille,<br />jotka rakastavat kauhua.</h2>
+            <p class="eyebrow"><span aria-hidden="true"></span>{fi.landing.aboutKicker}</p>
+            <h2 id="about-title">
+              {fi.landing.aboutHeadingBeforeBreak}<br />{fi.landing.aboutHeadingAfterBreak}
+            </h2>
           </div>
           <div class="about-body">
-            <p>
-              Splatter on ruotsalainen suoratoistopalvelu kauhulle, trillereille ja
-              kulttielokuville. Kirjasto on koottu käsin todellisille kauhun
-              ystäville — kuolemattomista klassikoista uusiin, synkkiin genren helmiin.
-            </p>
-            <p class="launch-note"><span aria-hidden="true">→</span> Pian myös Suomessa.</p>
+            <p>{fi.landing.aboutBody}</p>
+            <p class="launch-note"><span aria-hidden="true">→</span> {fi.landing.aboutNote}</p>
+          </div>
+        </section>
+        <section class="product-proof" aria-labelledby="proof-title">
+          <div class="proof-heading">
+            <p class="eyebrow"><span aria-hidden="true"></span>{fi.landing.proofKicker}</p>
+            <h2 id="proof-title">{fi.landing.proofHeading}</h2>
+            <p>{fi.landing.proofDescription}</p>
+          </div>
+          <div class="proof-grid">
+            {fi.landing.proofImages.map((item) => (
+              <figure>
+                <img src={item.src} alt={item.alt} width="1280" height="720" loading="lazy" decoding="async" />
+                <figcaption>{item.label}</figcaption>
+              </figure>
+            ))}
           </div>
         </section>
       </main>
-
-      <footer class="site-footer">
-        <div>
-          <img src="/brand/splatter-logo.svg" width="112" height="40" alt="Splatter" />
-          <p>© {new Date().getFullYear()} Splatter · Niche en scène AB</p>
-        </div>
-        <div class="footer-links">
-          <button type="button" data-open-privacy>Tietosuojaseloste</button>
-          <a href="mailto:hej@splatter.se">hej@splatter.se</a>
-          <a href="https://www.splatter.se/" hreflang="sv">splatter.se</a>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
-
-    <dialog class="privacy-dialog" data-privacy-dialog aria-labelledby="privacy-title">
-      <div class="dialog-head">
-        <p class="card-kicker">Tietosi</p>
-        <button type="button" data-close-privacy aria-label="Sulje tietosuojaseloste">×</button>
-      </div>
-      <h2 id="privacy-title">Tietosuojaseloste</h2>
-      <div class="dialog-copy">
-        <p>
-          Rekisterinpitäjä on Niche en scène AB (org.nr 559449-3511). Käsittelemme
-          sähköpostiosoitettasi suostumuksellasi vain ilmoittaaksemme Splatterin
-          Suomen-lanseerauksesta.
-        </p>
-        <p>
-          Osoite säilytetään Mailchimpissä julkaisuun ja ilmoituksen lähettämiseen
-          asti tai kunnes peruutat suostumuksesi. Tämän jälkeen se poistetaan
-          tästä listasta kohtuullisen ajan kuluessa.
-        </p>
-        <p>
-          Voit pyytää pääsyä tietoihisi, niiden oikaisua tai poistamista sekä
-          peruuttaa suostumuksesi ottamalla yhteyttä osoitteeseen
-          <a href="mailto:hej@splatter.se">hej@splatter.se</a>.
-        </p>
-      </div>
-      <button class="dialog-close" type="button" data-close-privacy>Sulje</button>
-    </dialog>
-
-    <script>
-      const form = document.querySelector("[data-signup-form]");
-      const email = document.querySelector("#mce-EMAIL");
-      const consent = document.querySelector("#consent");
-      const emailError = document.querySelector("[data-email-error]");
-      const consentError = document.querySelector("[data-consent-error]");
-
-      email?.addEventListener("invalid", () => {
-        if (email instanceof HTMLInputElement) {
-          email?.setAttribute("aria-invalid", "true");
-          if (emailError) emailError.textContent = "Anna toimiva sähköpostiosoite.";
-        }
-      });
-
-      consent?.addEventListener("invalid", () => {
-        if (consent instanceof HTMLInputElement) {
-          consent?.setAttribute("aria-invalid", "true");
-          if (consentError) consentError.textContent = "Hyväksy tietojen käsittely jatkaaksesi.";
-        }
-      });
-
-      form?.addEventListener("submit", () => {
-        const button = form.querySelector("button[type='submit']");
-        if (button instanceof HTMLButtonElement) {
-          button.disabled = true;
-          button.querySelector("span")!.textContent = "Tallennetaan…";
-        }
-      });
-
-      email?.addEventListener("input", () => {
-        email.removeAttribute("aria-invalid");
-        if (emailError) emailError.textContent = "";
-      });
-      consent?.addEventListener("change", () => {
-        consent.removeAttribute("aria-invalid");
-        if (consentError) consentError.textContent = "";
-      });
-
-      const dialog = document.querySelector("[data-privacy-dialog]");
-      const privacyTrigger = document.querySelector("[data-open-privacy]");
-      const closePrivacy = () => {
-        if (!(dialog instanceof HTMLDialogElement)) return;
-        if (typeof dialog.close === "function" && dialog.open) dialog.close();
-        else dialog.removeAttribute("open");
-        if (privacyTrigger instanceof HTMLElement) privacyTrigger.focus();
-      };
-
-      privacyTrigger?.addEventListener("click", () => {
-        if (!(dialog instanceof HTMLDialogElement)) return;
-        if (typeof dialog.showModal === "function") dialog.showModal();
-        else dialog.setAttribute("open", "");
-      });
-      document.querySelectorAll("[data-close-privacy]").forEach((button) => {
-        button.addEventListener("click", closePrivacy);
-      });
-      dialog?.addEventListener("click", (event) => {
-        if (event.target === dialog) closePrivacy();
-      });
-    </script>
+    <PrivacyDialog />
+    <script src="../scripts/landing.ts"></script>
   </body>
 </html>

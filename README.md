@@ -1,10 +1,13 @@
 # Splatter.fi
 
-Kevyt, staattinen lanseeraussivu Splattersin Suomen-julkaisun odotuslistalle.
+Kevyt, staattinen ennakkosivu Splattersin mahdollisen Suomen-laajentumisen odotuslistalle.
 Sivu noudattaa Splatter.se:n Premium Pulp -ilmettä, käyttää paikallisia fontteja
 ja lähettää ilmoittautumiset Mailchimpin julkiseen lomakkeeseen. Lomake pysyy
 turvallisesti pois käytöstä, kunnes Suomen-listan oikeat asetukset on annettu.
-Sivulla ei ole analytiikkaa eikä muita kuin toiminnan kannalta välttämättömiä evästeitä.
+Sivulla ei ole analytiikkaevästeitä. Ensimmäisen käynnin UTM-tiedot ja anonyymi
+istuntotunniste säilyvät vain selaimen `sessionStorage`-muistissa. Kiitossivun
+kysely ei väitä tallentaneensa vastauksia ennen kuin turvallinen endpoint on
+konfiguroitu.
 
 ## Kehitys
 
@@ -22,7 +25,7 @@ npm run deploy:bundle
 
 Valmis one.com-paketti syntyy tiedostoon `onecom-bundle.zip`.
 
-## Mailchimp
+## Mailchimp ja Suomen ennakkovalmistelut
 
 Ennen julkaisua Mailchimpissä pitää:
 
@@ -40,6 +43,9 @@ suostumus tallennetaan `FICONSENT`-kenttään ja liittymiset saavat automaattise
 
 Mailchimp API -avainta ei koskaan tarvita selaimessa eikä tähän repoon pidä
 lisätä salaisuuksia.
+
+Kaikki ulkoiset asetukset, kyselydatan vaihtoehdot ja manuaaliset tarkistukset:
+[`docs/finland-prelaunch-setup.md`](docs/finland-prelaunch-setup.md).
 
 ## Publicering
 

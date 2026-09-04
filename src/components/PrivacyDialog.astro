@@ -1,0 +1,21 @@
+---
+import { fi } from "../content/fi";
+import { siteConfig } from "../config/site";
+---
+
+<dialog class="privacy-dialog" data-privacy-dialog aria-labelledby="privacy-title">
+  <div class="dialog-head">
+    <p class="card-kicker">{fi.privacy.kicker}</p>
+    <button type="button" data-close-privacy aria-label={fi.common.closePrivacy}>×</button>
+  </div>
+  <h2 id="privacy-title">{fi.privacy.heading}</h2>
+  <div class="dialog-copy">
+    <p>{fi.privacy.paragraphs[0]}</p>
+    <p>{fi.privacy.paragraphs[1]}</p>
+    <p>
+      {fi.privacy.paragraphs[2]} <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>.
+    </p>
+  </div>
+  <button class="dialog-close" type="button" data-close-privacy>{fi.common.close}</button>
+</dialog>
+

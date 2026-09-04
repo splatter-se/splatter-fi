@@ -82,7 +82,9 @@ body {
 }
 
 button,
-input {
+input,
+textarea,
+select {
   font: inherit;
 }
 
@@ -518,6 +520,64 @@ h1 {
   color: var(--red-text);
 }
 
+.product-proof {
+  width: min(100% - 2.5rem, 1240px);
+  margin: 0 auto;
+  padding: 0 0 clamp(5rem, 9vw, 8rem);
+}
+
+.proof-heading {
+  display: grid;
+  max-width: 760px;
+  gap: 1rem;
+}
+
+.proof-heading h2 {
+  font-size: clamp(2rem, 4vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.proof-heading > p:last-child {
+  max-width: 680px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.68;
+}
+
+.proof-grid {
+  display: grid;
+  margin-top: 2.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.proof-grid figure {
+  margin: 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.proof-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.proof-grid figcaption {
+  padding: 0.85rem 1rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 .site-footer {
   display: flex;
   width: min(100% - 2.5rem, 1240px);
@@ -625,6 +685,236 @@ h1 {
   margin-top: 1.2rem;
 }
 
+.thank-page .site-header {
+  position: relative;
+}
+
+.thank-main {
+  position: relative;
+  min-height: calc(100svh - 84px);
+  overflow: hidden;
+  padding: clamp(4rem, 8vw, 7rem) 0;
+}
+
+.thank-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 7, 8, 0.88), rgba(8, 7, 8, 0.97)),
+    url("/brand/hero-poster-wall-1920x1080.webp") center top / cover no-repeat;
+  filter: saturate(0.72);
+}
+
+.thank-content,
+.thank-unverified {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 2.5rem, 980px);
+  margin: 0 auto;
+}
+
+.thank-unverified {
+  max-width: 720px;
+  border: 1px solid var(--line);
+  background: rgba(21, 18, 23, 0.96);
+  padding: clamp(1.8rem, 5vw, 3.4rem);
+}
+
+.thank-unverified h1,
+.thank-intro h1 {
+  margin-top: 1rem;
+  font-size: clamp(2.25rem, 6vw, 5.5rem);
+}
+
+.thank-unverified > p:not(.card-kicker),
+.thank-lede {
+  max-width: 720px;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.65;
+}
+
+.text-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-underline-offset: 0.25em;
+}
+
+.text-link:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 4px;
+}
+
+.thank-intro {
+  max-width: 840px;
+}
+
+.survey-card {
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  border: 1px solid rgba(242, 237, 230, 0.16);
+  background: rgba(21, 18, 23, 0.97);
+  padding: clamp(1.35rem, 4.5vw, 3.5rem);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.4);
+}
+
+.survey-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 1.7rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.survey-head h2 {
+  font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+.survey-head p,
+.survey-privacy {
+  margin: 0;
+  color: #918a92;
+  font-size: 0.75rem;
+  line-height: 1.55;
+}
+
+.survey-card fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 2rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.survey-card legend {
+  width: 100%;
+  padding: 0;
+  color: var(--bone);
+  font-family: var(--font-heading);
+  font-size: clamp(0.9rem, 2vw, 1.08rem);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.survey-card legend > span {
+  margin-right: 0.75rem;
+  color: var(--red-text);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.survey-card legend small {
+  display: inline-block;
+  margin-left: 0.65rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.option-grid {
+  display: grid;
+  margin-top: 1.1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.option-grid.compact,
+.option-grid.genres {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.survey-option {
+  position: relative;
+  display: flex;
+  min-height: 54px;
+  cursor: pointer;
+}
+
+.survey-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.survey-option span {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border: 1px solid rgba(242, 237, 230, 0.2);
+  background: var(--base);
+  padding: 0.8rem 0.9rem;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.35;
+  transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.survey-option:hover span {
+  border-color: rgba(242, 237, 230, 0.4);
+  color: var(--bone);
+}
+
+.survey-option input:checked + span {
+  border-color: var(--red);
+  background: rgba(193, 18, 31, 0.14);
+  color: var(--bone);
+  box-shadow: inset 3px 0 0 var(--red);
+}
+
+.survey-option input:focus-visible + span {
+  outline: 2px solid var(--bone);
+  outline-offset: 3px;
+}
+
+.survey-option input:disabled + span {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.genre-status,
+.survey-error,
+.survey-form-status {
+  min-height: 1.15rem;
+  margin: 0.65rem 0 0;
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.genre-status {
+  color: var(--muted);
+}
+
+.survey-error {
+  color: #ff7a70;
+}
+
+.survey-error:focus {
+  outline: none;
+}
+
+.survey-privacy {
+  max-width: 720px;
+  margin-top: 1.5rem;
+}
+
+.survey-submit {
+  max-width: 360px;
+  margin-top: 1.35rem;
+}
+
+.survey-form-status {
+  max-width: 720px;
+  color: var(--bone);
+}
+
 @media (max-width: 960px) {
   .hero-inner {
     grid-template-columns: 1fr;
@@ -660,12 +950,26 @@ h1 {
     max-width: 620px;
     padding-top: 0;
   }
+
+  .proof-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .proof-grid figure {
+    width: min(100%, 720px);
+  }
+
+  .option-grid.compact,
+  .option-grid.genres {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
   .site-header,
   .hero-inner,
   .about,
+  .product-proof,
   .site-footer {
     width: min(100% - 2rem, 1240px);
   }
@@ -725,6 +1029,31 @@ h1 {
 
   .about-body {
     grid-column: 1;
+  }
+
+  .proof-grid,
+  .option-grid,
+  .option-grid.compact,
+  .option-grid.genres {
+    grid-template-columns: 1fr;
+  }
+
+  .thank-main {
+    min-height: calc(100svh - 72px);
+    padding: 3rem 0;
+  }
+
+  .thank-content,
+  .thank-unverified {
+    width: min(100% - 2rem, 980px);
+  }
+
+  .survey-head {
+    display: block;
+  }
+
+  .survey-head p {
+    margin-top: 0.75rem;
   }
 
   .site-footer {

@@ -1,0 +1,17 @@
+---
+import { fi } from "../content/fi";
+import { siteConfig } from "../config/site";
+---
+
+<footer class="site-footer">
+  <div>
+    <img src="/brand/splatter-logo.svg" width="112" height="40" alt="Splatter" />
+    <p>© {new Date().getFullYear()} Splatter · Niche en scène AB</p>
+  </div>
+  <div class="footer-links">
+    <button type="button" data-open-privacy>{fi.common.privacy}</button>
+    <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
+    <a href="https://www.splatter.se/" hreflang="sv">{fi.common.swedishSite}</a>
+  </div>
+</footer>
+
