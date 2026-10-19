@@ -1,5 +1,10 @@
 # Finland pre-launch: extern konfiguration och drift
 
+Uppdatering 19 oktober 2026: aktuell implementation och lanseringsordning finns i
+[`finland-demand-test.md`](finland-demand-test.md). Nedanstående text beskriver
+det äldre publika formuläret och tidigare planering. Ändra inte dess globala
+audience-opt-in; den nya API-vägen begär dubbel opt-in per ny kontakt.
+
 Sajten är statisk och publiceras med GitHub Pages. Den befintliga väntelistan
 postar direkt till Mailchimps publika formulär och behöver ingen API-nyckel i
 webbläsaren. Ändra inte till ett klientbaserat API-anrop: den native-post som

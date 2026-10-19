@@ -4,6 +4,10 @@ import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import { fi } from "../content/fi";
 import { mailchimpConfig, signupReady } from "../config/site";
+import { siteConfig } from '../config/site';
+import { offerReady, monthlyPrice } from '../config/experiment';
+import MeasurementChoice from '../components/MeasurementChoice.astro';
+import TestOffer from '../components/TestOffer.astro';
 import "../styles/global.css";
 
 const attributionFields = Object.entries(mailchimpConfig.attributionFields).filter(
@@ -83,7 +87,9 @@ const attributionFields = Object.entries(mailchimpConfig.attributionFields).filt
             <aside class="signup-card" id="ilmoitus" aria-labelledby="signup-title">
               <p class="card-kicker">{fi.landing.cardKicker}</p>
               <h2 id="signup-title">{fi.landing.formHeading}</h2>
+              {offerReady && <p class="offer-price">{monthlyPrice}<span> / kuukausi</span></p>}
               <p class="card-copy">{fi.landing.formDescription}</p>
+              {offerReady && <p class="form-note">Ilmoittautuminen on maksutonta eikä sido tilaukseen. Vahvista kiinnostuksesi sähköpostitse.</p>}
               <form
                 id="signup-form"
                 class="signup-form"
@@ -92,6 +98,7 @@ const attributionFields = Object.entries(mailchimpConfig.attributionFields).filt
                 enctype="multipart/form-data"
                 data-signup-form
                 data-signup-ready={String(signupReady)}
+                data-demand-ready={String(offerReady && Boolean(siteConfig.demandApi))}
                 tabindex="-1"
               >
                 <div class="field">
@@ -147,10 +154,12 @@ const attributionFields = Object.entries(mailchimpConfig.attributionFields).filt
                 <p class="form-note">
                   {signupReady ? fi.landing.formNote : fi.landing.formUnavailable}
                 </p>
+                <p class="field-error" data-signup-status role="status" aria-live="polite"></p>
               </form>
             </aside>
           </div>
         </section>
+        <TestOffer />
         <section class="about" aria-labelledby="about-title">
           <div class="about-number" aria-hidden="true">01</div>
           <div class="about-copy">
@@ -183,6 +192,7 @@ const attributionFields = Object.entries(mailchimpConfig.attributionFields).filt
       <SiteFooter />
     </div>
     <PrivacyDialog />
+    <MeasurementChoice />
     <script src="../scripts/landing.ts"></script>
   </body>
 </html>

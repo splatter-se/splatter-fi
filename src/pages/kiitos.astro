@@ -3,6 +3,8 @@ import PrivacyDialog from "../components/PrivacyDialog.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import { fi } from "../content/fi";
+import { experiment, monthlyPrice, offerReady } from '../config/experiment';
+import MeasurementChoice from '../components/MeasurementChoice.astro';
 import "../styles/global.css";
 ---
 
@@ -42,12 +44,41 @@ import "../styles/global.css";
           <p>{fi.thankYou.unverifiedBody}</p>
           <a class="text-link" href="/">← {fi.thankYou.backHome}</a>
         </section>
+        <section class="thank-content" data-email-check hidden aria-labelledby="email-check-title">
+          <p class="card-kicker">Vahvista sähköpostisi</p>
+          <h1 id="email-check-title">Vielä yksi askel.</h1>
+          <p>Avaa Mailchimpiltä saamasi vahvistusviesti ja vahvista sähköpostiosoitteesi.
+            Palaa sitten tähän välilehteen ja tarkista vahvistus. Tarkista myös roskapostikansio.
+            Jos osoitteesi on jo listalla, uutta vahvistusviestiä ei välttämättä tule.
+            Voit tällöin ottaa yhteyttä osoitteeseen hej@splatter.se.</p>
+          <button type="button" class="submit-button" data-check-email>Tarkista vahvistus</button>
+          <p role="status" aria-live="polite" data-verification-status></p>
+        </section>
         <section class="thank-content" data-confirmed hidden aria-labelledby="thank-title">
           <header class="thank-intro">
             <p class="eyebrow"><span aria-hidden="true"></span>{fi.thankYou.kicker}</p>
             <h1 id="thank-title">{fi.thankYou.heading}</h1>
             <p class="thank-lede">{fi.thankYou.lede}</p>
           </header>
+          {offerReady && (
+            <form class="survey-card" data-intent-form hidden data-offer-version={experiment.offerVersion}>
+              <h2>Haluaisitko mukaan maksulliseen pilottiin?</h2>
+              <p class="offer-price">{monthlyPrice}<span> / kuukausi</span></p>
+              <p>Tekstitykset: {experiment.subtitleLanguages.join(', ')}.<br />Katselu: {experiment.devices.join(', ')}.</p>
+              <p>Suunniteltu palvelu esiteltiin etusivulla. Vastauksesi ei ole tilaus eikä sinulta veloiteta mitään.
+                Pilotti järjestetään vain, jos palvelu voidaan avata.</p>
+              <fieldset>
+                <legend>Kiinnostaisiko osallistuminen tähän hintaan?</legend>
+                <div class="option-grid">
+                  <label class="survey-option"><input type="radio" name="intent" value="yes" required /><span>Kyllä, haluan kutsun</span></label>
+                  <label class="survey-option"><input type="radio" name="intent" value="maybe" required /><span>Ehkä, tarvitsen lisätietoa</span></label>
+                  <label class="survey-option"><input type="radio" name="intent" value="no" required /><span>Ei tällä hinnalla</span></label>
+                </div>
+              </fieldset>
+              <button class="submit-button" type="submit">Tallenna vastaukseni</button>
+              <p role="status" aria-live="polite" data-intent-status></p>
+            </form>
+          )}
           <form class="survey-card" id="survey" data-survey-form novalidate>
             <div class="survey-head">
               <h2>{fi.thankYou.surveyHeading}</h2>
@@ -114,6 +145,7 @@ import "../styles/global.css";
       <SiteFooter />
     </div>
     <PrivacyDialog />
+    <MeasurementChoice />
     <script src="../scripts/thank-you.ts"></script>
   </body>
 </html>

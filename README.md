@@ -1,5 +1,20 @@
 # Splatter.fi
 
+## Efterfrågetest för Finland, 19 oktober 2026
+
+Aktuell plan, måttdefinitioner, intervjuguide och drift:
+[`docs/finland-demand-test.md`](docs/finland-demand-test.md).
+Två pausade annonsunderlag finns i `campaign/fi-demand-2026-01.json`.
+Besöksmätning och enkäter använder en separat Cloudflare Worker med D1 i EU.
+Mätning kräver ett frivilligt val och avser uppmätta sessioner, inte alla besök.
+Prisexperimentet är spärrat tills pris, rättigheter, språk och enheter är fastställda.
+Den nya API-vägen har e-postbekräftelse; det äldre publika formulärets återkomst
+räknas aldrig som bekräftad e-post. Det befintliga formuläret används tills den
+nya vägen är konfigurerad och testad.
+
+Den ursprungliga sidbeskrivningen följer nedan; den nya driftguiden gäller före
+de äldre manuella konfigurationsanteckningarna.
+
 Kevyt, staattinen ennakkosivu Splattersin mahdollisen Suomen-laajentumisen odotuslistalle.
 Sivu noudattaa Splatter.se:n Premium Pulp -ilmettä, käyttää paikallisia fontteja
 ja lähettää ilmoittautumiset Mailchimpin julkiseen lomakkeeseen. Lomake pysyy

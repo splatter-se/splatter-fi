@@ -1,0 +1,19 @@
+name: Finland measurement retention
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  purge-expired-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Delete only records older than 90 days
+        run: >-
+          curl --fail-with-body --silent --show-error --retry 2 --max-time 30
+          --request POST https://splatter-fi-demand.olle-88b.workers.dev/maintenance

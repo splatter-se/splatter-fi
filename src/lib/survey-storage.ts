@@ -2,6 +2,7 @@ import { siteConfig } from "../config/site";
 import type { Attribution } from "./analytics";
 
 export type SurveyPayload = {
+  measurementConsent: true;
   answers: {
     subscriptionReason: string;
     viewingFrequency: string;
@@ -28,9 +29,10 @@ export async function submitSurvey(payload: SurveyPayload): Promise<SurveyResult
       credentials: "omit",
       referrerPolicy: "no-referrer",
     });
-    return response.ok ? { stored: true } : { stored: false, reason: "invalid_response" };
+    if (!response.ok) return { stored: false, reason: 'invalid_response' };
+    const result = await response.json();
+    return result.stored === true ? { stored: true } : { stored: false, reason: 'invalid_response' };
   } catch {
     return { stored: false, reason: "network_error" };
   }
 }
-

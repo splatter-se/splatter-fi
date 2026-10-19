@@ -1,0 +1,16 @@
+{
+  "name": "splatter-fi-demand",
+  "main": "index.mjs",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "observability": { "enabled": false },
+  "vars": {
+    "ALLOWED_ORIGINS": "https://splatter.fi,https://www.splatter.fi"
+  },
+  "d1_databases": [{ "binding": "DB", "database_name": "splatter-fi-demand", "database_id": "146ff770-e993-401b-978b-7cfd6609d6ca" }],
+  "ratelimits": [
+    { "name": "RATE_LIMITER", "namespace_id": "782061019", "simple": { "limit": 30, "period": 60 } },
+    { "name": "SIGNUP_RATE_LIMITER", "namespace_id": "782061020", "simple": { "limit": 3, "period": 60 } }
+  ]
+}
