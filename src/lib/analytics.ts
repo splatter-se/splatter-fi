@@ -119,13 +119,8 @@ export async function track(
 
   const body = JSON.stringify(payload);
   try {
-    if (navigator.sendBeacon) {
-      const sent = navigator.sendBeacon(
-        siteConfig.analyticsEndpoint,
-        new Blob([body], { type: "application/json" }),
-      );
-      if (sent) return { sent: true } as const;
-    }
+    // A cross-origin JSON beacon uses credentialed CORS and reports only that
+    // it was queued. Use an explicitly credential-free, keepalive request.
     const response = await fetch(siteConfig.analyticsEndpoint, {
       method: "POST",
       headers: { "content-type": "application/json" },
