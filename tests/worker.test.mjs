@@ -68,9 +68,9 @@ test('surveys validate answers, discard unknown fields and acknowledge only save
   db.close();
 });
 
-test('the draft offer cannot accept signups or price intent', async () => {
+test('an unapproved offer is rejected and a missing Mailchimp key keeps signups disabled', async () => {
   const { db, env } = database();
-  assert.equal(offerReady(offer), false);
+  assert.equal(offerReady({ ...offer, approved: false }), false);
   assert.equal((await handle(request('/v1/subscribe', { consent: true }), env)).status, 503);
   assert.equal(db.prepare('SELECT COUNT(*) AS n FROM leads').get().n, 0);
   db.close();

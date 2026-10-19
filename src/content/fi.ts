@@ -19,6 +19,7 @@ export const fi = {
     swedishSite: "splatter.se",
   },
   landing: {
+    offerSummary: "Rajaton pääsy satoihin huolella valittuihin elokuviin.",
     skip: "Siirry odotuslistalle",
     eyebrow: "Suomen-lanseeraus suunnitteilla",
     headingBeforeBreak: "Kauhu saapuu",

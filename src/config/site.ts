@@ -6,6 +6,7 @@ export const siteConfig = {
   analyticsEndpoint: clean(import.meta.env.PUBLIC_ANALYTICS_ENDPOINT),
   surveyEndpoint: clean(import.meta.env.PUBLIC_SURVEY_ENDPOINT),
   demandApi: clean(import.meta.env.PUBLIC_DEMAND_API).replace(/\/$/, ''),
+  verifiedSignupEnabled: import.meta.env.PUBLIC_VERIFIED_SIGNUP_ENABLED === 'true',
   landingVariant: clean(import.meta.env.PUBLIC_LANDING_VARIANT) || "default",
 } as const;
 

@@ -10,25 +10,40 @@
   "maximumAdvertisingDays": 21,
   "targetMeasuredFinnishSessions": 500,
   "campaignName": "FI | Demand validation | 2026-01",
-  "launchRequires": ["offer-approved", "finnish-review", "double-opt-in-live-test-passed", "measurement-reconciled", "CAC-ceiling-decided"],
+  "launchRequires": [
+    "offer-approved",
+    "finnish-review",
+    "double-opt-in-live-test-passed",
+    "measurement-reconciled",
+    "CAC-ceiling-decided"
+  ],
   "ads": [
     {
       "name": "FI | Discovery",
       "firstStageCeilingSek": 1000,
       "headline": "Löydä seuraava kauhuelokuvasi",
-      "primaryText": "Rakastatko kauhua, trillereitä ja kulttielokuvia? Suunnittelemme Splatterin avaamista Suomessa. Tutustu suunniteltuun elokuvavalikoimaan ja kuukausihintaan sekä kerro, kiinnostaisiko palvelu sinua. Ilmoittautuminen on maksutonta eikä sido tilaukseen.",
+      "primaryText": "Splatter — rajaton pääsy satoihin huolella valittuihin kauhu-, trilleri- ja kulttielokuviin. Suunniteltu hinta Suomessa 8,99 € kuukaudessa. Tutustu suunnitelmaan ja ilmoita kiinnostuksesi. Ilmoittautuminen on maksutonta eikä sido tilaukseen.",
       "url": "https://splatter.fi/?utm_source=meta&utm_medium=paid_social&utm_campaign=fi-demand-2026-01&utm_content=discovery",
-      "creativeBrief": "Use only film artwork cleared for this Finnish marketing test. Lead with 3-4 films from the approved offer. Display the approved price consistently with the page. Do not promise exclusivity, Finnish subtitles or a release date without evidence."
+      "creativeBrief": "Use only film artwork cleared for this Finnish marketing test. Lead with 3-4 films from the approved offer. Display the approved price consistently with the page. Do not promise exclusivity, Finnish subtitles or a release date without evidence. Present the public offer as Splatter at EUR 8.99/month. Raw is the internal entitlement scope; do not advertise Uncut or Carnage benefits as included. Keep the sales message to Splatter, EUR 8.99/month and unlimited access to hundreds of curated films. Omit resolution, device counts and tier comparisons."
     },
     {
       "name": "FI | Community",
       "firstStageCeilingSek": 1000,
       "headline": "Kauhun ystäville. Suunnitteilla Suomeen.",
-      "primaryText": "Millainen olisi sinun kauhuelokuvapalvelusi? Splatter toimii jo Ruotsissa. Nyt selvitämme kiinnostusta Suomessa. Katso suunniteltu tarjonta ja hinta sekä ilmoita kiinnostuksesi. Palvelu ei ole vielä saatavilla Suomessa.",
+      "primaryText": "Kauhun ystäville. Suunnitteilla Suomeen. Splatter — satoja huolella valittuja elokuvia, rajattomasti katsottavaa. Suunniteltu hinta 8,99 € kuukaudessa. Ilmoita kiinnostuksesi. Palvelu ei ole vielä saatavilla Suomessa.",
       "url": "https://splatter.fi/?utm_source=meta&utm_medium=paid_social&utm_campaign=fi-demand-2026-01&utm_content=community",
-      "creativeBrief": "Use Splatter identity and cleared Swedish product screenshots labelled as examples. Present the same approved Finnish offer and price as the Discovery ad."
+      "creativeBrief": "Use Splatter identity and cleared Swedish product screenshots labelled as examples. Present the same approved Finnish offer and price as the Discovery ad. Present the public offer as Splatter at EUR 8.99/month. Raw is the internal entitlement scope; do not advertise Uncut or Carnage benefits as included. Keep the sales message to Splatter, EUR 8.99/month and unlimited access to hundreds of curated films. Omit resolution, device counts and tier comparisons."
     }
   ],
   "organicUrl": "https://splatter.fi/?utm_source=community&utm_medium=organic_social&utm_campaign=fi-demand-2026-01&utm_content=community",
-  "researchUrl": "https://splatter.fi/?utm_source=interview&utm_medium=research&utm_campaign=fi-demand-2026-01&utm_content=interview"
+  "researchUrl": "https://splatter.fi/?utm_source=interview&utm_medium=research&utm_campaign=fi-demand-2026-01&utm_content=interview",
+  "offer": {
+    "publicName": "Splatter",
+    "internalTier": "Raw",
+    "monthlyPriceCents": 899,
+    "currency": "EUR",
+    "pricePresentation": "Planned monthly price; no introductory discount or later price stated",
+    "catalogueScope": "Only films included in Raw and cleared for Finland",
+    "publicPromise": "Rajaton pääsy satoihin huolella valittuihin elokuviin."
+  }
 }

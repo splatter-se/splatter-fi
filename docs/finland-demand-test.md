@@ -4,18 +4,43 @@ Beslut 19 oktober 2026: undersök om finska skräckfans vill köpa Splatter till
 angivet pris och om det går att nå dem ekonomiskt. Tidigare 0 kontakter under
 `Finland launch` är ingen konverteringsgrad; historisk besökstrafik saknas.
 
+## Fastställt erbjudande
+
+Användaren har fastställt **8,99 EUR per månad för Raw**. Publikt marknadsförs
+erbjudandet som **Splatter**; nivånamnen Raw, Uncut och Carnage används inte i
+detta första annonserade erbjudande. Raw är den interna innehålls- och
+rättighetsgränsen. Visa bara filmer som faktiskt ingår i Raw och kan erbjudas
+i Finland. Priset presenteras som planerat månadspris i efterfrågetestet; ingen
+introduktionsperiod, rabatt eller senare prishöjning är beslutad.
+
+Publikt huvudbudskap: **Splatter — 8,99 EUR/månad för obegränsad tillgång till
+hundratals utvalda filmer.** Ingen upplösning, inget antal enheter och ingen
+nivåjämförelse i annonserna eller erbjudandets sammanfattning. Språk- och
+enhetsinformation hanteras internt och är inte obligatoriska fält för att visa
+erbjudandet. Påståendet om hundratals filmer gäller Raw-utbudet i Finland.
+
+Prisfältet är 899 cent. Användaren har godkänt publicering av det generella
+planerade erbjudandet, version `fi-offer-v2-raw-899`. Inga namngivna filmer
+visas innan deras finska rättigheter är verifierade. Det krävs inte sex
+filmexempel för att visa detta generella intresseerbjudande.
+
+`PUBLIC_VERIFIED_SIGNUP_ENABLED=false` behåller det fungerande publika
+Mailchimp-formuläret tills API-nyckel och verkligt bekräftelsetest är klara.
+Pris och intresseerbjudande kan publiceras oberoende av denna tekniska flagga.
+
 ## Genomförande och beslut
 
 1. Intervjua 8–10 vuxna finska skräckfans. Granska erbjudande och finska med
    personer som faktiskt betalar för film. Rekrytera både entusiaster och mindre
    aktiva tittare, inte bara befintliga Splatter-följare. Ersättningar ingår inte
    i annonsbudgeten och måste bestämmas separat.
-2. Fastställ månadspris i euro, minst sex representativa filmer med verifierade
-   rättigheter för Finland, verkliga undertextspråk och tillgängliga enheter.
-   Använd helst 12–20 filmer om rättighetsläget tillåter det. Finska undertexter
-   får inte utlovas utifrån svenska undertexter eller osäkrade licenser.
-3. Aktivera erbjudandet i `src/config/experiment.json`. `approved` är medvetet
-   `false` och priset `null` tills dessa beslut finns. Byt `offerVersion` när
+2. Använd det beslutade månadspriset 8,99 EUR och det generella planerade
+   erbjudandet om hundratals utvalda filmer. Om namngivna filmexempel läggs till
+   ska deras finska rättigheter först verifieras. Finska undertexter får inte
+   utlovas utifrån svenska undertexter eller osäkrade licenser.
+3. Erbjudandet i `src/config/experiment.json` är godkänt för intressetestet
+   (`approved: true`), med priset 899 cent. Det innebär inte att tjänsten är
+   lanserad i Finland. Byt `offerVersion` när
    pris, katalog eller villkor ändras. Starta en ny experimentidentitet för ett
    separat test; ändra inte villkor mitt i ett jämförelsefönster.
 4. Verifiera en riktig, kontrollerad registrering inklusive bekräftelsemejl,
@@ -142,9 +167,9 @@ en importväg som inte returnerar rapportens rader. Sätt `WRANGLER_BIN` till di
 befintliga Wrangler-binär om kommandot inte finns i PATH. I denna arbetsmiljö
 finns den i `../splatter-main/node_modules/.bin/wrangler` från reporoten.
 
-Lägg aldrig nyckeln i PUBLIC-variabler, repot eller rapporter. Nyckeln behöver
-anslutas genom en säker inmatning av kontoägaren, inte kopieras från browserns
-session. En eventuell ny nyckel ska skapas av kontoägaren.
+Lägg aldrig nyckeln i PUBLIC-variabler, repot eller rapporter. Anslut den som
+Cloudflare Worker-hemlighet genom säker inmatning. Ny åtkomst genom en separat
+API-nyckel kräver kontoägarens uttryckliga godkännande innan den skapas.
 
 `PUBLIC_ANALYTICS_ENDPOINT` ska sluta på `/v1/events`, `PUBLIC_SURVEY_ENDPOINT`
 på `/v1/surveys`, och `PUBLIC_DEMAND_API` vara samma Workers-origin utan suffix.
@@ -157,7 +182,7 @@ Stoppa även berörda annonser. Radera inte databasen för att stänga insamling
 
 ## Kvar före trafiktest
 
-- Fastställt europris, finska rättigheter, undertextspråk och enheter.
+- Säkerställ att det planerade Raw-utbudet i Finland motsvarar löftet om hundratals filmer. Namngivna filmer kräver verifierade rättigheter. Europriset 8,99 är fastställt.
 - Finsk språkgranskning och 8–10 intervjuer; observerade hinder åtgärdade.
 - Mailchimp API-nyckel via säker konfiguration.
 - Riktig dubbel opt-in-genomgång, inklusive finsk bekräftelsecopy och mobilflöde.
