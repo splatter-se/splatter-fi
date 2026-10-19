@@ -18,6 +18,7 @@ setupPrivacyDialog();
 document.addEventListener('splatter:measurement-choice', () => {
   attribution = captureFirstTouch();
   void track('finland_landing_view');
+  if (offerReady) void track('finland_offer_view');
 });
 if (offerReady) void track('finland_offer_view');
 

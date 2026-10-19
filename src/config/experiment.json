@@ -1,8 +1,8 @@
 {
   "id": "fi-demand-2026-01",
-  "offerVersion": "fi-offer-v1",
-  "approved": false,
-  "monthlyPriceCents": null,
+  "offerVersion": "fi-offer-v2-raw-899",
+  "approved": true,
+  "monthlyPriceCents": 899,
   "currency": "EUR",
   "subtitleLanguages": [],
   "devices": [],

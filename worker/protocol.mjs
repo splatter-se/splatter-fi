@@ -20,7 +20,6 @@ export function attribution(input = {}) {
 export function offerReady(offer) {
   return offer.approved === true && Number.isInteger(offer.monthlyPriceCents) &&
     offer.monthlyPriceCents > 0 && offer.currency === 'EUR' &&
-    offer.films.length >= 6 && offer.subtitleLanguages.length > 0 && offer.devices.length > 0 &&
     offer.films.every(film => film.rightsApproved === true &&
       typeof film.title === 'string' && film.title.length > 0 &&
       typeof film.poster === 'string' && film.poster.startsWith('/'));
