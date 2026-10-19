@@ -1,0 +1,15 @@
+{
+  "id": "fi-demand-2026-01",
+  "offerVersion": "fi-offer-v1",
+  "approved": false,
+  "monthlyPriceCents": null,
+  "currency": "EUR",
+  "subtitleLanguages": [],
+  "devices": [],
+  "films": [],
+  "mediaBudgetSek": 8000,
+  "firstStageBudgetSek": 2000,
+  "targetMeasuredSessions": 500,
+  "targetVerifiedLeads": 40,
+  "targetQualifiedLeads": 10
+}

@@ -44,13 +44,15 @@ test("ships the existing Mailchimp audience identifiers without a secret", () =>
   assert.doesNotMatch(productionEnv, /API[_-]?KEY|Bearer |password/i);
 });
 
-test("shows the thank-you survey only after the success redirect marker", () => {
+test("never treats a form return as proof of email ownership", () => {
   assert.match(thankYou, /data-unverified/);
   assert.match(thankYou, /data-confirmed hidden/);
-  assert.match(thankYouScript, /confirmSignupFromRedirect\(\)/);
-  assert.match(thankYouScript, /if \(confirmed\)/);
+  assert.match(thankYouScript, /consumeSignupReturn\(\)/);
+  assert.match(thankYouScript, /if \(returned \|\| proof\)/);
+  assert.match(thankYouScript, /result\.verified === true/);
   assert.match(landingScript, /markSignupPending\(\)/);
-  assert.doesNotMatch(landingScript, /location\.(?:href|assign|replace).*kiitos/i);
+  assert.match(landingScript, /result\.state !== 'check_email'/);
+  assert.doesNotMatch(analytics, /finland_signup_success/);
 });
 
 test("implements all questions and enforces at most three genres", () => {
@@ -60,7 +62,7 @@ test("implements all questions and enforces at most three genres", () => {
   assert.match(copy, /Millä laitteella todennäköisimmin katsoisit\?/);
   assert.match(thankYouScript, /selected >= 3/);
   assert.match(thankYouScript, /genres\.length > 3/);
-  assert.match(thankYouScript, /input\.disabled = atLimit && !input\.checked/);
+  assert.match(thankYouScript, /atLimit && !input\.checked/);
 });
 
 test("survey storage fails honestly when no endpoint is configured", () => {
@@ -71,7 +73,7 @@ test("survey storage fails honestly when no endpoint is configured", () => {
 });
 
 test("tracks the requested funnel with first-touch session attribution", () => {
-  for (const event of ["finland_landing_view", "finland_signup_start", "finland_signup_success", "finland_signup_error", "finland_survey_start", "finland_survey_complete"]) {
+  for (const event of ["finland_landing_view", "finland_signup_start", "finland_signup_submit", "finland_signup_return", "finland_signup_error", "finland_survey_start", "finland_survey_complete"]) {
     assert.match(analytics, new RegExp(event));
   }
   for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_content"]) {

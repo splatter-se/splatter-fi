@@ -84,13 +84,13 @@ export const fi = {
   thankYou: {
     skip: "Siirry sisältöön",
     kicker: "Suomen odotuslista",
-    heading: "Kiitos — olet mukana.",
+    heading: "Kiitos kiinnostuksestasi.",
     lede: "Auta meitä vielä kolmella nopealla vastauksella.",
     privacyNote:
-      "Vastaukset tallennetaan ilman sähköpostiosoitetta yhdessä anonyymin istuntotunnisteen, ajankohdan ja ensimmäisen käynnin kampanjatietojen kanssa.",
-    unverifiedHeading: "Liittymistä ei ole vahvistettu.",
+      "Vastausten tallennus edellyttää vapaaehtoista mittauslupaa. Vastaukset tallennetaan ilman sähköpostiosoitetta selainistunnon tunnisteen kanssa 90 päiväksi.",
+    unverifiedHeading: "Aloita etusivulta.",
     unverifiedBody:
-      "Tälle sivulle tullaan onnistuneen odotuslistalle liittymisen jälkeen. Voit aloittaa etusivulta.",
+      "Voit ilmoittaa kiinnostuksesi Suomen-palveluun etusivun lomakkeella. Tämän sivun avaaminen ei vahvista sähköpostiosoitettasi.",
     backHome: "Palaa etusivulle",
     surveyHeading: "Kolme nopeaa kysymystä",
     requiredHint: "Tähdellä merkityt kysymykset ovat pakollisia.",

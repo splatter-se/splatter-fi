@@ -7,3 +7,5 @@ dist/
 !.env.example
 !.env.production
 onecom-bundle.zip
+.wrangler/
+worker/.dev.vars

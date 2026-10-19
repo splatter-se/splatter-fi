@@ -1,12 +1,16 @@
 import { siteConfig } from "../config/site";
+import { measurementAllowed } from './measurement';
+import { experiment, offerReady } from '../config/experiment';
 
 export const FINLAND_EVENTS = [
   "finland_landing_view",
   "finland_signup_start",
-  "finland_signup_success",
+  "finland_signup_submit",
+  "finland_signup_return",
   "finland_signup_error",
   "finland_survey_start",
   "finland_survey_complete",
+  "finland_offer_view",
 ] as const;
 
 export type FinlandEvent = (typeof FINLAND_EVENTS)[number];
@@ -17,11 +21,12 @@ export type Attribution = Partial<
 const attributionKey = "splatter.fi.attribution.v1";
 const sessionKey = "splatter.fi.session.v1";
 export const signupPendingKey = "splatter.fi.signup-pending.v1";
-export const signupConfirmedKey = "splatter.fi.signup-confirmed.v1";
+export const signupReturnedKey = "splatter.fi.signup-returned.v1";
 const allowedUtmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"] as const;
 
 function storageAvailable() {
-  return typeof window !== "undefined" && typeof window.sessionStorage !== "undefined";
+  try { return typeof window !== "undefined" && typeof window.sessionStorage !== "undefined"; }
+  catch { return false; }
 }
 
 function safeRead<T>(key: string): T | null {
@@ -56,6 +61,7 @@ export function getSessionId() {
 }
 
 export function captureFirstTouch(): Attribution {
+  if (!measurementAllowed()) return { landing_variant: siteConfig.landingVariant };
   const existing = safeRead<Attribution>(attributionKey);
   if (existing) return existing;
 
@@ -64,10 +70,9 @@ export function captureFirstTouch(): Attribution {
     const params = new URLSearchParams(window.location.search);
     for (const key of allowedUtmKeys) {
       const value = params.get(key);
-      if (value) attribution[key] = bounded(value);
+      // Keep the campaign vocabulary narrow, even before sending to the backend.
+      if (value && /^(meta|community|interview|qa|paid_social|organic_social|research|fi-demand-2026-01|discovery)$/.test(value)) attribution[key] = bounded(value);
     }
-    const variant = params.get("variant") || params.get("v");
-    if (variant) attribution.landing_variant = bounded(variant, 64);
   }
   safeWrite(attributionKey, attribution);
   return attribution;
@@ -81,10 +86,10 @@ export function markSignupPending() {
   safeWrite(signupPendingKey, { createdAt: new Date().toISOString() });
 }
 
-export function confirmSignupFromRedirect() {
+export function consumeSignupReturn() {
   const pending = safeRead<{ createdAt: string }>(signupPendingKey);
-  if (!pending) return false;
-  safeWrite(signupConfirmedKey, { confirmedAt: new Date().toISOString() });
+  if (!pending || Date.now() - Date.parse(pending.createdAt) > 30 * 60 * 1000) return false;
+  safeWrite(signupReturnedKey, { returnedAt: new Date().toISOString() });
   try {
     window.sessionStorage.removeItem(signupPendingKey);
   } catch {
@@ -97,7 +102,11 @@ export async function track(
   name: FinlandEvent,
   properties: Record<string, string | number | boolean> = {},
 ) {
+  if (!measurementAllowed()) return { sent: false, reason: 'no_consent' } as const;
   const payload = {
+    eventId: crypto.randomUUID(),
+    measurementConsent: true,
+    offerVersion: offerReady ? experiment.offerVersion : null,
     event: name,
     occurredAt: new Date().toISOString(),
     sessionId: getSessionId(),
@@ -130,4 +139,3 @@ export async function track(
     return { sent: false, reason: "network_error" } as const;
   }
 }
-

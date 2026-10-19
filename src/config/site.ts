@@ -5,6 +5,7 @@ export const siteConfig = {
   contactEmail: clean(import.meta.env.PUBLIC_CONTACT_EMAIL) || "hej@splatter.se",
   analyticsEndpoint: clean(import.meta.env.PUBLIC_ANALYTICS_ENDPOINT),
   surveyEndpoint: clean(import.meta.env.PUBLIC_SURVEY_ENDPOINT),
+  demandApi: clean(import.meta.env.PUBLIC_DEMAND_API).replace(/\/$/, ''),
   landingVariant: clean(import.meta.env.PUBLIC_LANDING_VARIANT) || "default",
 } as const;
 
@@ -30,4 +31,3 @@ export const signupReady = Boolean(
     mailchimpConfig.honeypotName &&
     mailchimpConfig.tagId,
 );
-

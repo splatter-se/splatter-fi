@@ -16,6 +16,11 @@ import { siteConfig } from "../config/site";
       {fi.privacy.paragraphs[2]} <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>.
     </p>
   </div>
+  <p class="dialog-copy">Luvallasi keräämme kampanjan ja selainistunnon tietoja palvelun kiinnostuksen mittaamiseen.
+    Tiedot ovat pseudonyymejä: sähköpostia tai IP-osoitetta ei tallenneta mittauskantaan.
+    Vahvistetun ilmoittautumisen yhteydessä tallennamme Mailchimp-tunnisteen ja mahdollisen pilottikiinnostuksen.
+    Mittauspalvelun tarjoaa Cloudflare. Mittaustiedot poistetaan 90 päivän kuluttua.
+    Mittaus on vapaaehtoista, eikä sen hylkääminen estä listalle liittymistä.</p>
+  <button type="button" class="dialog-close" data-measurement-settings>Muuta mittausvalintaa</button>
   <button class="dialog-close" type="button" data-close-privacy>{fi.common.close}</button>
 </dialog>
-

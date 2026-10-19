@@ -1,0 +1,34 @@
+{
+  "status": "DRAFT_NOT_PUBLISHED",
+  "experimentId": "fi-demand-2026-01",
+  "country": "FI",
+  "minimumAge": 18,
+  "language": "fi",
+  "currency": "SEK",
+  "totalMediaCeiling": 8000,
+  "firstStageCeiling": 2000,
+  "maximumAdvertisingDays": 21,
+  "targetMeasuredFinnishSessions": 500,
+  "campaignName": "FI | Demand validation | 2026-01",
+  "launchRequires": ["offer-approved", "finnish-review", "double-opt-in-live-test-passed", "measurement-reconciled", "CAC-ceiling-decided"],
+  "ads": [
+    {
+      "name": "FI | Discovery",
+      "firstStageCeilingSek": 1000,
+      "headline": "Löydä seuraava kauhuelokuvasi",
+      "primaryText": "Rakastatko kauhua, trillereitä ja kulttielokuvia? Suunnittelemme Splatterin avaamista Suomessa. Tutustu suunniteltuun elokuvavalikoimaan ja kuukausihintaan sekä kerro, kiinnostaisiko palvelu sinua. Ilmoittautuminen on maksutonta eikä sido tilaukseen.",
+      "url": "https://splatter.fi/?utm_source=meta&utm_medium=paid_social&utm_campaign=fi-demand-2026-01&utm_content=discovery",
+      "creativeBrief": "Use only film artwork cleared for this Finnish marketing test. Lead with 3-4 films from the approved offer. Display the approved price consistently with the page. Do not promise exclusivity, Finnish subtitles or a release date without evidence."
+    },
+    {
+      "name": "FI | Community",
+      "firstStageCeilingSek": 1000,
+      "headline": "Kauhun ystäville. Suunnitteilla Suomeen.",
+      "primaryText": "Millainen olisi sinun kauhuelokuvapalvelusi? Splatter toimii jo Ruotsissa. Nyt selvitämme kiinnostusta Suomessa. Katso suunniteltu tarjonta ja hinta sekä ilmoita kiinnostuksesi. Palvelu ei ole vielä saatavilla Suomessa.",
+      "url": "https://splatter.fi/?utm_source=meta&utm_medium=paid_social&utm_campaign=fi-demand-2026-01&utm_content=community",
+      "creativeBrief": "Use Splatter identity and cleared Swedish product screenshots labelled as examples. Present the same approved Finnish offer and price as the Discovery ad."
+    }
+  ],
+  "organicUrl": "https://splatter.fi/?utm_source=community&utm_medium=organic_social&utm_campaign=fi-demand-2026-01&utm_content=community",
+  "researchUrl": "https://splatter.fi/?utm_source=interview&utm_medium=research&utm_campaign=fi-demand-2026-01&utm_content=interview"
+}
