@@ -80,6 +80,8 @@ test("tracks the requested funnel with first-touch session attribution", () => {
     assert.match(analytics, new RegExp(key));
   }
   assert.match(analytics, /window\.sessionStorage/);
+  assert.match(analytics, /credentials: "omit"/);
+  assert.doesNotMatch(analytics, /navigator\.sendBeacon/);
   assert.doesNotMatch(analytics + storage, /localStorage/);
   assert.doesNotMatch(analytics + storage, /EMAIL|email/i);
 });
