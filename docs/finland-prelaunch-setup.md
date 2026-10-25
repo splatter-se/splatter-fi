@@ -1,14 +1,12 @@
 # Finland pre-launch: extern konfiguration och drift
 
-Uppdatering 19 oktober 2026: aktuell implementation och lanseringsordning finns i
-[`finland-demand-test.md`](finland-demand-test.md). Nedanstående text beskriver
-det äldre publika formuläret och tidigare planering. Ändra inte dess globala
-audience-opt-in; den nya API-vägen begär dubbel opt-in per ny kontakt.
-
-Sajten är statisk och publiceras med GitHub Pages. Den befintliga väntelistan
-postar direkt till Mailchimps publika formulär och behöver ingen API-nyckel i
-webbläsaren. Ändra inte till ett klientbaserat API-anrop: den native-post som
-finns nu är den robustaste vägen och fungerar även utan JavaScript.
+Uppdatering 25 oktober 2026: aktuell implementation och lanseringsordning finns i
+[`finland-demand-test.md`](finland-demand-test.md). Sajten är statisk och
+publiceras med GitHub Pages. Registreringar går med JavaScript via Splatters
+Cloudflare Worker, som begär dubbel opt-in från Mailchimp och aldrig exponerar
+API-nyckeln för webbläsaren. Det befintliga publika Mailchimp-formuläret ligger
+kvar som reserv när JavaScript saknas. Ändra inte den globala audience-inställningen
+från single opt-in; Worker-vägen begär `pending` per ny finsk kontakt.
 
 ## Mailchimp
 
@@ -17,20 +15,22 @@ Nuvarande, redan verifierade värden:
 - Audience: befintlig Splatter-audience (single opt-in).
 - Tag: `Finland launch`, ID `10285197`.
 - Consent merge field: `FICONSENT`.
-- Consentversion i sajten: `fi-prelaunch-v2-2026-09-04`.
+- Consentversion i Worker-flödet: `fi-demand-v1-2026-10-19`.
+- Reservformulärets consentversion: `fi-prelaunch-v2-2026-09-04`.
+- API-nyckeln finns endast som `MAILCHIMP_API_KEY` i Worker-secrets.
 
-Gör följande manuellt i Mailchimp:
+Produktionstestet den 25 oktober 2026 bekräftade `pending` → `subscribed`,
+serververifiering och lagring av prisintresse. Följande återstår manuellt:
 
-1. Öppna audience-formulärets `Signup form` och ange den externa success-URL:en
-   `https://splatter.fi/kiitos`. Det ska endast vara formulärets lyckade
-   registrering som skickar besökaren dit.
-2. Stäng av Mailchimps JavaScript-validering för embed-formuläret när den externa
-   redirecten används. Sajten behåller HTML-validering och skickar fortfarande
-   formuläret direkt till Mailchimp.
-3. Testa med en kontrollerad adress: en valideringsmiss eller ett Mailchimp-fel
-   får inte leda till `/kiitos`, medan en lyckad registrering ska göra det.
-4. Kontrollera att taggen `Finland launch` och värdet i `FICONSENT` finns på
-   testkontakten.
+1. Språkgranska Mailchimps bekräftelsemejl och bekräftelsesida på finska. Den
+   äldre systemmejlsredigeraren fastnade på laddningsvyn under QA och copy kunde
+   därför inte visuellt godkännas.
+2. Gör ett separat mobiltest där länken öppnas från en vanlig e-postapp och den
+   ursprungliga `/kiitos`-fliken ligger kvar.
+3. Kontrollera att testkontakten har taggen `Finland launch` och värdet
+   `fi-demand-v1-2026-10-19` i `FICONSENT`.
+4. Behåll success-URL `https://splatter.fi/kiitos` på reservformuläret. Ett
+   validerings- eller Mailchimp-fel får aldrig skicka besökaren dit.
 
 Officiell vägledning: [Mailchimp – Design and host your own thank you pages](https://mailchimp.com/help/design-and-host-your-own-thank-you-pages/).
 
@@ -73,21 +73,9 @@ Finlandrättighet eller löfte om finska undertexter innan det är verifierat.
 
 ## Enkätlagring
 
-Enkätgränssnittet och ett litet lagringsinterface är färdiga, men ingen endpoint
-är aktiverad. Därför visar sidan inte en falsk sparbekräftelse: användaren får ett
-tydligt meddelande om att svaren inte skickades. E-postadressen ingår aldrig i
-enkätpayloaden, URL:en, `sessionStorage` eller analysen.
-
-Välj senare ett av dessa kostnadsfria first-party-alternativ:
-
-- En befintlig one.com-miljö med PHP och SQLite/MySQL, om sådan hosting redan
-  ingår eller aktiveras.
-- Cloudflare Worker + D1 på kostnadsfri nivå, om ett Cloudflare-konto väljs för
-  projektet.
-
-Inget alternativ har valts automatiskt eftersom båda kräver ett externt konto,
-driftval och serverkonfiguration. När en endpoint finns sätts
-`PUBLIC_SURVEY_ENDPOINT` till dess HTTPS-adress. Endpointen ska:
+Enkäten använder nu befintlig Cloudflare Worker + D1 på kostnadsfri nivå.
+`PUBLIC_SURVEY_ENDPOINT` pekar på `/v1/surveys`. E-postadressen ingår aldrig i
+enkätpayloaden, URL:en, `sessionStorage` eller analysen. Endpointen:
 
 - endast acceptera `POST application/json`,
 - validera alla svar mot samma fasta värdelistor som i sajten,
@@ -99,8 +87,9 @@ driftval och serverkonfiguration. När en endpoint finns sätts
 Om one.com-reservpaketet används måste `connect-src` i `public/.htaccess` också
 få endpointens exakta origin. Lägg inte till ett generellt jokertecken.
 
-Exportera surveydata som CSV eller JSON från vald databas. Koppla inte samman
-exporten med Mailchimp via e-postadress.
+Exportera aggregerad funneldata med `node scripts/finland-report.mjs`. Exportera
+rå enkätdata från D1 endast när svaren behöver analyseras, och koppla aldrig
+exporten till Mailchimp via e-postadress.
 
 ## Funnel och trafikkällor
 
@@ -117,11 +106,11 @@ Första besökets `utm_source`, `utm_medium`, `utm_campaign` och `utm_content`, 
 landningssidevariant, lagras i `sessionStorage`. Där finns också ett anonymt
 sessions-ID. Ingen e-post eller annan direkt personuppgift lagras eller skickas.
 
-Utan konfigurerad endpoint skickas eller sparas inga analysevents; sajten använder
-inga analyscookies och behöver inget nytt samtyckesbanner. `/kiitos` kan ändå ses
-som den enklaste konverteringssidan i eventuell befintlig hoststatistik. Om en
-first-party-endpoint senare väljs anges den som `PUBLIC_ANALYTICS_ENDPOINT` och
-funnelstegen kan summeras per UTM och `landing_variant`.
+Efter aktivt mätsamtycke skickas event till Splatters first-party Worker via
+`PUBLIC_ANALYTICS_ENDPOINT`. Utan samtycke skickas eller sparas inga analysevents.
+Sajten använder inga analyscookies och behöver inget separat cookieverktyg.
+Funnelstegen kan summeras per UTM och `landing_variant`; leads utan mätsamtycke
+redovisas separat.
 
 ## Kontaktadress
 
