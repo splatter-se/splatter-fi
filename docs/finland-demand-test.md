@@ -24,9 +24,10 @@ planerade erbjudandet, version `fi-offer-v2-raw-899`. Inga namngivna filmer
 visas innan deras finska rättigheter är verifierade. Det krävs inte sex
 filmexempel för att visa detta generella intresseerbjudande.
 
-`PUBLIC_VERIFIED_SIGNUP_ENABLED=false` behåller det fungerande publika
-Mailchimp-formuläret tills API-nyckel och verkligt bekräftelsetest är klara.
-Pris och intresseerbjudande kan publiceras oberoende av denna tekniska flagga.
+`PUBLIC_VERIFIED_SIGNUP_ENABLED=true` använder den verifierade servervägen för
+nya registreringar. Det befintliga Mailchimp-formuläret ligger kvar som reserv
+för besökare utan JavaScript. Pris och intresseerbjudande kan publiceras
+oberoende av denna tekniska flagga.
 
 ## Genomförande och beslut
 
@@ -171,6 +172,13 @@ Lägg aldrig nyckeln i PUBLIC-variabler, repot eller rapporter. Anslut den som
 Cloudflare Worker-hemlighet genom säker inmatning. Ny åtkomst genom en separat
 API-nyckel kräver kontoägarens uttryckliga godkännande innan den skapas.
 
+Den 25 oktober 2026 installerades en separat Mailchimp-nyckel som Worker-hemlighet
+och ett kontrollerat produktionstest verifierade hela serverkedjan: ny kontakt
+skapades som `pending`, e-postlänken ändrade status till `subscribed`, Worker
+godkände leaden och prisintresset 8,99 EUR lagrades. QA-raden togs därefter bort
+ur D1 så att den inte påverkar efterfrågerapporten. Testkontakten ligger kvar i
+Mailchimp och ska inte räknas som marknadslead.
+
 `PUBLIC_ANALYTICS_ENDPOINT` ska sluta på `/v1/events`, `PUBLIC_SURVEY_ENDPOINT`
 på `/v1/surveys`, och `PUBLIC_DEMAND_API` vara samma Workers-origin utan suffix.
 Kör `npm run verify` före frontendpublicering och Worker dry-run före deploy.
@@ -184,8 +192,9 @@ Stoppa även berörda annonser. Radera inte databasen för att stänga insamling
 
 - Säkerställ att det planerade Raw-utbudet i Finland motsvarar löftet om hundratals filmer. Namngivna filmer kräver verifierade rättigheter. Europriset 8,99 är fastställt.
 - Finsk språkgranskning och 8–10 intervjuer; observerade hinder åtgärdade.
-- Mailchimp API-nyckel via säker konfiguration.
-- Riktig dubbel opt-in-genomgång, inklusive finsk bekräftelsecopy och mobilflöde.
+- Mailchimp API-nyckeln är installerad och den tekniska dubbel opt-in-kedjan är
+  verifierad. Granska fortfarande finsk bekräftelsecopy och mobilflöde innan
+  betald trafik startas.
 - Beslutat CAC-tak och konkreta, pausade annonsutkast granskade mot erbjudandet.
 
 Budgeten används inte för att köpa trafik till baseline-sidan.
