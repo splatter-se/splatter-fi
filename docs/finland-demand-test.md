@@ -177,7 +177,8 @@ och ett kontrollerat produktionstest verifierade hela serverkedjan: ny kontakt
 skapades som `pending`, e-postlänken ändrade status till `subscribed`, Worker
 godkände leaden och prisintresset 8,99 EUR lagrades. QA-raden togs därefter bort
 ur D1 så att den inte påverkar efterfrågerapporten. Testkontakten ligger kvar i
-Mailchimp och ska inte räknas som marknadslead.
+Mailchimp och ska inte räknas som marknadslead. Nyckeln löper ut den 25 oktober
+2027 och ska roteras som Worker-hemlighet före det datumet.
 
 `PUBLIC_ANALYTICS_ENDPOINT` ska sluta på `/v1/events`, `PUBLIC_SURVEY_ENDPOINT`
 på `/v1/surveys`, och `PUBLIC_DEMAND_API` vara samma Workers-origin utan suffix.

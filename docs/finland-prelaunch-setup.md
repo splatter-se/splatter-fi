@@ -18,6 +18,7 @@ Nuvarande, redan verifierade värden:
 - Consentversion i Worker-flödet: `fi-demand-v1-2026-10-19`.
 - Reservformulärets consentversion: `fi-prelaunch-v2-2026-09-04`.
 - API-nyckeln finns endast som `MAILCHIMP_API_KEY` i Worker-secrets.
+- Nuvarande API-nyckel löper ut 25 oktober 2027 och ska roteras före dess.
 
 Produktionstestet den 25 oktober 2026 bekräftade `pending` → `subscribed`,
 serververifiering och lagring av prisintresse. Följande återstår manuellt:
