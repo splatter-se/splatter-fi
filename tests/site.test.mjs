@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
-const [home, thankYou, copy, config, landingScript, thankYouScript, analytics, storage, css, robots, sitemap, productionEnv, setupDocs] =
+const [home, thankYou, copy, config, landingScript, thankYouScript, analytics, storage, css, robots, sitemap, productionEnv, setupDocs, mailchimpCopy] =
   await Promise.all([
     read("../src/pages/index.astro"),
     read("../src/pages/kiitos.astro"),
@@ -18,12 +18,13 @@ const [home, thankYou, copy, config, landingScript, thankYouScript, analytics, s
     read("../public/sitemap.xml"),
     read("../.env.production"),
     read("../docs/finland-prelaunch-setup.md"),
+    read("../docs/finland-mailchimp-copy.md"),
   ]);
 
 test("uses honest, centrally managed Finland planning copy", () => {
   assert.match(copy, /Kauhu saapuu/);
-  assert.match(copy, /Suomen-lanseeraus suunnitteilla/);
-  assert.match(copy, /Suunnittelemme laajentumista Suomeen/);
+  assert.match(copy, /Suomeen laajentamista suunnitellaan/);
+  assert.match(copy, /Selvitämme mahdollisuutta laajentua Suomeen/);
   assert.doesNotMatch(copy, /Pian Suomessa|nyt pian|lanseeraamme pian/i);
   assert.match(home, /import \{ fi \} from "\.\.\/content\/fi"/);
 });
@@ -56,7 +57,7 @@ test("never treats a form return as proof of email ownership", () => {
 });
 
 test("implements all questions and enforces at most three genres", () => {
-  assert.match(copy, /Mikä saisi sinut todennäköisimmin tilaamaan Splatters\?/);
+  assert.match(copy, /Mikä saisi sinut todennäköisimmin tilaamaan Splatterin\?/);
   assert.match(copy, /Kuinka usein katsot kauhuelokuvia\?/);
   assert.match(copy, /Mitä haluaisit katsoa\? Valitse enintään kolme\./);
   assert.match(copy, /Millä laitteella todennäköisimmin katsoisit\?/);
@@ -69,7 +70,7 @@ test("survey storage fails honestly when no endpoint is configured", () => {
   assert.match(storage, /if \(!siteConfig\.surveyEndpoint\) return \{ stored: false, reason: "not_configured" \}/);
   assert.match(thankYouScript, /fi\.thankYou\.storageUnavailable/);
   assert.match(thankYouScript, /if \(result\.stored\)/);
-  assert.match(copy, /Vastauksia ei lähetetty/);
+  assert.match(copy, /Vastauksiasi ei lähetetty/);
 });
 
 test("tracks the requested funnel with first-touch session attribution", () => {
@@ -108,8 +109,8 @@ test("uses local, lazy-loaded Swedish product proof without Finland promises", (
     assert.match(copy, new RegExp(image));
   }
   assert.match(home, /loading="lazy"/);
-  assert.match(copy, /esimerkkejä Ruotsissa käytössä olevasta palvelusta/);
-  assert.match(copy, /Suomen valikoima ja ominaisuudet arvioidaan erikseen/);
+  assert.match(copy, /Kuvat esittelevät Ruotsissa käytössä olevaa palvelua/);
+  assert.match(copy, /Suomen valikoimaa tai ominaisuuksia ei ole vielä päätetty/);
 });
 
 test("keeps Finnish SEO, canonical, social metadata and sitemap", () => {
@@ -124,9 +125,22 @@ test("keeps Finnish SEO, canonical, social metadata and sitemap", () => {
 });
 
 test("documents the manual Mailchimp, survey, contact and editorial steps", () => {
-  assert.match(setupDocs, /https:\/\/splatter\.fi\/kiitos/);
+  assert.match(setupDocs, /finland-mailchimp-copy\.md/);
   assert.match(setupDocs, /hei@splatter\.fi/);
   assert.match(setupDocs, /3–4 relevanta mejl per år/);
   assert.match(setupDocs, /Cloudflare Worker \+ D1/);
   assert.match(setupDocs, /Kauhuelokuvien suoratoisto Suomessa/);
+  assert.match(mailchimpCopy, /Vahvista liittymisesi Splatterin Suomen odotuslistalle/);
+  assert.match(mailchimpCopy, /Mikä kauhuelokuva jäi sinulta löytämättä\?/);
+  assert.match(mailchimpCopy, /MAILCHIMPIN VAHVISTUSPAINIKE/);
+  assert.match(mailchimpCopy, /anonyma verifieringsbevis/);
+  assert.match(mailchimpCopy, /hej@splatter\.se/);
+  assert.match(mailchimpCopy, /hei@splatter\.fi/);
+});
+
+test("keeps the public contact address centrally configurable", () => {
+  assert.match(config, /PUBLIC_CONTACT_EMAIL/);
+  assert.doesNotMatch(copy, /hej@splatter\.se/);
+  assert.match(landingScript, /siteConfig\.contactEmail/);
+  assert.match(thankYou, /siteConfig\.contactEmail/);
 });

@@ -5,8 +5,8 @@ export const fi = {
       "Splatter on Ruotsissa toimiva kauhun, trillerien ja kulttielokuvien suoratoistopalvelu. Liity Suomen odotuslistalle ja auta meitä suunnittelemaan palvelua.",
     thankYouTitle: "Kiitos — Splatter Suomen odotuslista",
     thankYouDescription:
-      "Kiitos liittymisestä Splatterin Suomen odotuslistalle. Auta meitä palvelun suunnittelussa kolmella nopealla vastauksella.",
-    socialImageAlt: "Splatters kauhu- ja kulttielokuvien valikoima Ruotsissa",
+      "Kiitos, että liityit Splatterin Suomen odotuslistalle. Auta meitä palvelun suunnittelussa kolmella nopealla vastauksella.",
+    socialImageAlt: "Splatterin kauhu- ja kulttielokuvien valikoima Ruotsissa",
   },
   common: {
     headerLabel: "Ylätunniste",
@@ -21,22 +21,22 @@ export const fi = {
   landing: {
     offerSummary: "Rajaton pääsy satoihin huolella valittuihin elokuviin.",
     skip: "Siirry odotuslistalle",
-    eyebrow: "Suomen-lanseeraus suunnitteilla",
+    eyebrow: "Suomeen laajentamista suunnitellaan",
     headingBeforeBreak: "Kauhu saapuu",
     headingAfterBreak: "Suomeen.",
     lede:
-      "Splatter on Ruotsissa toimiva, kauhuun, trillereihin ja kulttielokuviin keskittyvä suoratoistopalvelu. Suunnittelemme laajentumista Suomeen — liity listalle ja auta meitä rakentamaan suomalaisille kauhun ystäville sopiva palvelu.",
-    genresLabel: "Splatters painopisteet",
+      "Splatter on Ruotsissa toimiva kauhuun, trillereihin ja kulttielokuviin keskittyvä suoratoistopalvelu. Selvitämme mahdollisuutta laajentua Suomeen — liity odotuslistalle ja auta meitä kehittämään suomalaisille kauhun ystäville sopivaa palvelua.",
+    genresLabel: "Splatterin painopisteet",
     genres: ["Kauhu", "Trillerit", "Kulttielokuvat"],
-    cardKicker: "Auta meitä rakentamaan Splatter Suomea",
+    cardKicker: "Auta meitä kehittämään Suomen palvelua",
     formHeading: "Liity Suomen odotuslistalle.",
     formDescription:
-      "Saat muutaman viestin vuodessa Suomen-suunnitelmistamme, lyhyitä kyselyitä ja mahdollisuuden osallistua palvelun kehittämiseen.",
-    emailLabel: "Sähköpostiosoitteesi",
+      "Saat muutaman viestin vuodessa Suomeen laajentumisen suunnittelusta, lyhyitä kyselyitä ja mahdollisuuden osallistua palvelun kehittämiseen.",
+    emailLabel: "Sähköpostiosoite",
     emailPlaceholder: "sinä@esimerkki.fi",
     honeypotLabel: "Jätä tämä kenttä tyhjäksi",
     consent:
-      "Hyväksyn, että Splatter / Niche en scène AB tallentaa sähköpostiosoitteeni ja lähettää minulle muutaman viestin vuodessa Suomen-lanseerauksesta, lyhyitä kyselyitä ja kutsuja mahdollisiin käyttäjätesteihin. Voin peruuttaa suostumukseni milloin tahansa.",
+      "Hyväksyn, että Splatter / Niche en scène AB tallentaa sähköpostiosoitteeni ja lähettää minulle muutaman viestin vuodessa Suomeen laajentumisen suunnittelusta, lyhyitä kyselyitä ja kutsuja mahdollisiin käyttäjätesteihin. Voin peruuttaa suostumukseni milloin tahansa.",
     submit: "Liity odotuslistalle",
     submitting: "Siirrytään…",
     unavailable: "Odotuslista avautuu pian",
@@ -45,57 +45,107 @@ export const fi = {
     formUnavailable: "Viimeistelemme parhaillaan Suomen odotuslistaa.",
     emailError: "Anna toimiva sähköpostiosoite.",
     consentError: "Hyväksy tietojen käsittely jatkaaksesi.",
+    registrationNote: "Ilmoittautuminen on maksutonta eikä sido tilaukseen.",
+    sentWithoutProof: (contactEmail: string) =>
+      `Ilmoittautuminen lähetettiin. Vahvista sähköpostiosoitteesi saamastasi viestistä. Selaimesi estää vahvistuksen tarkistamisen tässä välilehdessä; voit ottaa yhteyttä osoitteeseen ${contactEmail}.`,
+    sent: "Lähetetty",
+    signupError: "Ilmoittautumista ei voitu lähettää. Yritä hetken kuluttua uudelleen.",
     aboutKicker: "Mikä Splatter?",
-    aboutHeadingBeforeBreak: "Kauhua heille,",
-    aboutHeadingAfterBreak: "jotka rakastavat kauhua.",
+    aboutHeadingBeforeBreak: "Kauhua",
+    aboutHeadingAfterBreak: "kauhun ystäville.",
     aboutBody:
-      "Splatter on ruotsalainen suoratoistopalvelu kauhulle, trillereille ja kulttielokuville. Ruotsin palvelun kirjasto on koottu käsin todellisille kauhun ystäville — kuolemattomista klassikoista uusiin, synkkiin genren helmiin.",
-    aboutNote: "Suomen-versiota suunnitellaan parhaillaan.",
-    proofKicker: "Esimerkkejä Ruotsista",
-    proofHeading: "Kurkistus Splatteriin.",
+      "Ruotsissa Splatter kokoaa yhteen kauhun, trillerien ja kulttielokuvan eri suuntaukset. Käsin kuratoitu valikoima ulottuu lajityypin klassikoista uusiin kansainvälisiin löytöihin — katsojille, jotka etsivät muutakin kuin valtavirtaa.",
+    aboutNote: "Suomen palvelua suunnitellaan parhaillaan.",
+    proofKicker: "Ruotsin palvelusta",
+    proofHeading: "Näin Splatter toimii Ruotsissa.",
     proofDescription:
-      "Näkymät ovat esimerkkejä Ruotsissa käytössä olevasta palvelusta. Suomen valikoima ja ominaisuudet arvioidaan erikseen.",
+      "Kuvat esittelevät Ruotsissa käytössä olevaa palvelua. Suomen valikoimaa tai ominaisuuksia ei ole vielä päätetty.",
     proofImages: [
       {
         src: "/brand/product-home.webp",
-        alt: "Splatters ruotsalaisen palvelun etusivu televisiossa",
+        alt: "Splatterin ruotsalaisen palvelun etusivu televisiossa",
         label: "Etusivu",
       },
       {
         src: "/brand/product-detail.webp",
-        alt: "Elokuvan tietosivu Splatters ruotsalaisessa palvelussa",
-        label: "Elokuvasivu",
+        alt: "Elokuvan tietosivu Splatterin ruotsalaisessa palvelussa",
+        label: "Elokuvan tiedot",
       },
       {
         src: "/brand/product-collection.webp",
-        alt: "Kuratoitu kokoelma Splatters ruotsalaisessa palvelussa",
-        label: "Kuratoitu kokoelma",
+        alt: "Kuratoitu kokoelma Splatterin ruotsalaisessa palvelussa",
+        label: "Kokoelma",
       },
     ],
+  },
+  offer: {
+    kicker: "Suomeen suunniteltu palvelu",
+    heading: "Kauhua omaan makuusi.",
+    priceSuffix: " / kuukausi",
+    evaluation:
+      "Arvioimme kiinnostusta tähän palveluun ja hintaan. Ilmoittautuminen on maksutonta eikä sido tilaukseen. Palvelu ei ole vielä saatavilla Suomessa. Avauspäivää ei ole päätetty.",
+    filmsHeading: "Esimerkkejä suunnitellusta elokuvavalikoimasta",
+    cta: "Ilmoita kiinnostuksesi",
+  },
+  measurement: {
+    ariaLabel: "Kävijämittaus",
+    heading: "Saammeko mitata kiinnostusta?",
+    description:
+      "Luvallasi tallennamme tämän selainistunnon käynnin ja kampanjatiedot. Emme tallenna sähköpostia mittaustietoihin. Voit liittyä odotuslistalle myös ilman mittausta.",
+    allow: "Salli mittaus",
+    decline: "Jatka ilman mittausta",
   },
   privacy: {
     kicker: "Tietosi",
     heading: "Tietosuojaseloste",
     paragraphs: [
-      "Rekisterinpitäjä on Niche en scène AB (org.nr 559449-3511). Käsittelemme sähköpostiosoitettasi suostumuksellasi lähettääksemme sinulle muutaman viestin vuodessa Suomen-lanseerauksen suunnittelusta, lyhyitä kyselyitä ja kutsuja mahdollisiin käyttäjätesteihin.",
+      "Rekisterinpitäjä on Niche en scène AB (org.nr 559449-3511). Käsittelemme sähköpostiosoitettasi suostumuksellasi lähettääksemme sinulle muutaman viestin vuodessa Suomeen laajentumisen suunnittelusta, lyhyitä kyselyitä ja kutsuja mahdollisiin käyttäjätesteihin.",
       "Osoite säilytetään Mailchimpissä niin kauan kuin Suomen-hanke on arvioitavana ja haluat pysyä odotuslistalla, tai kunnes peruutat suostumuksesi. Jokaisessa viestissä on mahdollisuus poistua listalta.",
       "Voit pyytää pääsyä tietoihisi, niiden oikaisua tai poistamista sekä peruuttaa suostumuksesi ottamalla yhteyttä osoitteeseen",
     ],
+    measurement:
+      "Luvallasi keräämme kampanjan ja selainistunnon tietoja palvelun kiinnostuksen mittaamiseen. Tiedot ovat pseudonyymejä: sähköpostia tai IP-osoitetta ei tallenneta mittauskantaan. Vahvistetun ilmoittautumisen yhteydessä tallennamme Mailchimp-tunnisteen ja mahdollisen pilottikiinnostuksen. Mittauspalvelun tarjoaa Cloudflare. Mittaustiedot poistetaan 90 päivän kuluttua. Mittaus on vapaaehtoista, eikä sen hylkääminen estä odotuslistalle liittymistä.",
+    measurementSettings: "Muuta mittausvalintaa",
   },
   thankYou: {
     skip: "Siirry sisältöön",
     kicker: "Suomen odotuslista",
-    heading: "Kiitos kiinnostuksestasi.",
-    lede: "Auta meitä vielä kolmella nopealla vastauksella.",
+    heading: "Kiitos — olet mukana.",
+    lede: "Vastaa vielä kolmeen nopeaan kysymykseen.",
     privacyNote:
       "Vastausten tallennus edellyttää vapaaehtoista mittauslupaa. Vastaukset tallennetaan ilman sähköpostiosoitetta selainistunnon tunnisteen kanssa 90 päiväksi.",
     unverifiedHeading: "Aloita etusivulta.",
     unverifiedBody:
       "Voit ilmoittaa kiinnostuksesi Suomen-palveluun etusivun lomakkeella. Tämän sivun avaaminen ei vahvista sähköpostiosoitettasi.",
     backHome: "Palaa etusivulle",
+    verification: {
+      kicker: "Vahvista sähköpostiosoitteesi",
+      heading: "Vielä yksi askel.",
+      body:
+        "Avaa Mailchimpiltä saamasi vahvistusviesti ja vahvista osoitteesi. Palaa sitten tähän välilehteen ja tarkista vahvistuksen tila. Tarkista myös roskapostikansio. Jos osoitteesi on jo listalla, uutta vahvistusviestiä ei välttämättä tule. Voit tällöin ottaa yhteyttä osoitteeseen",
+      check: "Tarkista vahvistus",
+      pending:
+        "Sähköpostiosoitettasi ei ole vielä vahvistettu. Avaa vahvistuslinkki ja kokeile uudelleen.",
+      error:
+        "Sähköpostiosoitteen vahvistusta ei voitu tarkistaa. Yritä hetken kuluttua uudelleen.",
+    },
+    intent: {
+      heading: "Harkitsisitko maksullista pilottia?",
+      description:
+        "Suunniteltu palvelu esiteltiin etusivulla. Vastauksesi ei ole tilaus eikä sinulta veloiteta mitään. Pilotti järjestetään vain, jos palvelu voidaan avata.",
+      question: "Harkitsisitko tilausta tähän hintaan, jos palvelu olisi saatavilla Suomessa?",
+      options: [
+        ["yes", "Kyllä, haluaisin kuulla lisää"],
+        ["maybe", "Ehkä — tarvitsisin lisätietoja"],
+        ["no", "En tällä hinnalla"],
+      ],
+      submit: "Tallenna vastaukseni",
+      success: "Kiitos! Vastauksesi on tallennettu. Tämä ei ole tilaus.",
+      error: "Vastausta ei voitu tallentaa. Yritä uudelleen.",
+    },
     surveyHeading: "Kolme nopeaa kysymystä",
     requiredHint: "Tähdellä merkityt kysymykset ovat pakollisia.",
-    questionOne: "Mikä saisi sinut todennäköisimmin tilaamaan Splatters?",
+    questionOne: "Mikä saisi sinut todennäköisimmin tilaamaan Splatterin?",
     questionOneOptions: [
       ["exclusive", "Elokuvia, joita ei löydy muista palveluista"],
       ["finnish-subtitles", "Suomenkieliset tekstitykset"],
@@ -122,7 +172,7 @@ export const fi = {
       ["new-indie", "Uudet indie-elokuvat"],
     ],
     genreCounter: (selected: number) => `Valittu ${selected}/3.`,
-    genreLimit: "Enimmäismäärä on kolme. Poista yksi valinta vaihtaaksesi sen.",
+    genreLimit: "Voit valita enintään kolme. Jos haluat vaihtaa valintaa, poista ensin yksi.",
     optional: "Vapaaehtoinen",
     deviceQuestion: "Millä laitteella todennäköisimmin katsoisit?",
     deviceOptions: [
@@ -141,10 +191,12 @@ export const fi = {
     q2Error: "Valitse yksi vastaus.",
     q3Error: "Valitse vähintään yksi ja enintään kolme vaihtoehtoa.",
     storageUnavailable:
-      "Odotuslistalle liittymisesi on kunnossa, mutta kyselyvastausten turvallista tallennusta ei ole vielä otettu käyttöön. Vastauksia ei lähetetty.",
+      "Olet liittynyt odotuslistalle, mutta kyselyvastausten tallennus ei ole juuri nyt käytettävissä. Vastauksiasi ei lähetetty.",
     storageError:
       "Vastauksia ei voitu tallentaa juuri nyt. Yritä myöhemmin uudelleen.",
     noScript:
       "Kysely tarvitsee JavaScriptin vastausten tarkistamiseen ja lähettämiseen. Odotuslistalle liittymisesi on silti voimassa.",
+    measurementRequired:
+      "Salli vapaaehtoinen mittaus vastataksesi kyselyyn. Odotuslistalle liittyminen ei edellytä mittausta.",
   },
 } as const;

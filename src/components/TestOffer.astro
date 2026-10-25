@@ -4,20 +4,19 @@ import { fi } from '../content/fi';
 ---
 {offerReady && (
   <section class="test-offer" aria-labelledby="offer-title" data-offer-version={experiment.offerVersion}>
-    <p class="card-kicker">Suunniteltu Suomen-palvelu</p>
-    <h2 id="offer-title">Kauhua omaan makuusi.</h2>
-    <p class="offer-price">{monthlyPrice}<span> / kuukausi</span></p>
+    <p class="card-kicker">{fi.offer.kicker}</p>
+    <h2 id="offer-title">{fi.offer.heading}</h2>
+    <p class="offer-price">{monthlyPrice}<span>{fi.offer.priceSuffix}</span></p>
     <p>{fi.landing.offerSummary}</p>
-    <p>Arvioimme kiinnostusta tähän palveluun ja hintaan. Ilmoittautuminen on maksutonta
-      eikä sido tilaukseen. Palvelu ei ole vielä saatavilla Suomessa. Avauspäivää ei ole päätetty.</p>
+    <p>{fi.offer.evaluation}</p>
     {experiment.films.length > 0 && <>
-    <h3>Esimerkkejä suunnitellusta elokuvavalikoimasta</h3>
+    <h3>{fi.offer.filmsHeading}</h3>
     <div class="offer-films">
       {experiment.films.map(film => (
         <figure><img src={film.poster} alt="" width="300" height="450" loading="lazy" /><figcaption>{film.title}</figcaption></figure>
       ))}
     </div>
     </>}
-    <a class="text-link" href="#signup-form">Ilmoita kiinnostuksesi →</a>
+    <a class="text-link" href="#signup-form">{fi.offer.cta} →</a>
   </section>
 )}

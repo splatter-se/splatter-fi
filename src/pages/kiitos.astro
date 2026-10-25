@@ -3,6 +3,7 @@ import PrivacyDialog from "../components/PrivacyDialog.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import { fi } from "../content/fi";
+import { siteConfig } from "../config/site";
 import { experiment, monthlyPrice, offerReady } from '../config/experiment';
 import MeasurementChoice from '../components/MeasurementChoice.astro';
 import "../styles/global.css";
@@ -45,13 +46,10 @@ import "../styles/global.css";
           <a class="text-link" href="/">← {fi.thankYou.backHome}</a>
         </section>
         <section class="thank-content" data-email-check hidden aria-labelledby="email-check-title">
-          <p class="card-kicker">Vahvista sähköpostisi</p>
-          <h1 id="email-check-title">Vielä yksi askel.</h1>
-          <p>Avaa Mailchimpiltä saamasi vahvistusviesti ja vahvista sähköpostiosoitteesi.
-            Palaa sitten tähän välilehteen ja tarkista vahvistus. Tarkista myös roskapostikansio.
-            Jos osoitteesi on jo listalla, uutta vahvistusviestiä ei välttämättä tule.
-            Voit tällöin ottaa yhteyttä osoitteeseen hej@splatter.se.</p>
-          <button type="button" class="submit-button" data-check-email>Tarkista vahvistus</button>
+          <p class="card-kicker">{fi.thankYou.verification.kicker}</p>
+          <h1 id="email-check-title">{fi.thankYou.verification.heading}</h1>
+          <p>{fi.thankYou.verification.body} <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>.</p>
+          <button type="button" class="submit-button" data-check-email>{fi.thankYou.verification.check}</button>
           <p role="status" aria-live="polite" data-verification-status></p>
         </section>
         <section class="thank-content" data-confirmed hidden aria-labelledby="thank-title">
@@ -62,20 +60,19 @@ import "../styles/global.css";
           </header>
           {offerReady && (
             <form class="survey-card" data-intent-form hidden data-offer-version={experiment.offerVersion}>
-              <h2>Haluaisitko mukaan maksulliseen pilottiin?</h2>
-              <p class="offer-price">{monthlyPrice}<span> / kuukausi</span></p>
+              <h2>{fi.thankYou.intent.heading}</h2>
+              <p class="offer-price">{monthlyPrice}<span>{fi.offer.priceSuffix}</span></p>
               <p>{fi.landing.offerSummary}</p>
-              <p>Suunniteltu palvelu esiteltiin etusivulla. Vastauksesi ei ole tilaus eikä sinulta veloiteta mitään.
-                Pilotti järjestetään vain, jos palvelu voidaan avata.</p>
+              <p>{fi.thankYou.intent.description}</p>
               <fieldset>
-                <legend>Kiinnostaisiko osallistuminen tähän hintaan?</legend>
+                <legend>{fi.thankYou.intent.question}</legend>
                 <div class="option-grid">
-                  <label class="survey-option"><input type="radio" name="intent" value="yes" required /><span>Kyllä, haluan kutsun</span></label>
-                  <label class="survey-option"><input type="radio" name="intent" value="maybe" required /><span>Ehkä, tarvitsen lisätietoa</span></label>
-                  <label class="survey-option"><input type="radio" name="intent" value="no" required /><span>Ei tällä hinnalla</span></label>
+                  {fi.thankYou.intent.options.map(([value, label]) => (
+                    <label class="survey-option"><input type="radio" name="intent" value={value} required /><span>{label}</span></label>
+                  ))}
                 </div>
               </fieldset>
-              <button class="submit-button" type="submit">Tallenna vastaukseni</button>
+              <button class="submit-button" type="submit">{fi.thankYou.intent.submit}</button>
               <p role="status" aria-live="polite" data-intent-status></p>
             </form>
           )}

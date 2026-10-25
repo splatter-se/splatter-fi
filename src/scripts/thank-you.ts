@@ -43,10 +43,10 @@ checkButton?.addEventListener('click', async () => {
       checkPanel?.setAttribute('hidden', '');
       intentForm?.removeAttribute('hidden');
     } else if (checkStatus) {
-      checkStatus.textContent = 'Vahvistusta ei vielä löytynyt. Avaa sähköpostin vahvistuslinkki ja kokeile uudelleen.';
+      checkStatus.textContent = fi.thankYou.verification.pending;
     }
   } catch {
-    if (checkStatus) checkStatus.textContent = 'Vahvistusta ei voitu tarkistaa. Yritä hetken kuluttua uudelleen.';
+    if (checkStatus) checkStatus.textContent = fi.thankYou.verification.error;
   } finally { checkButton.disabled = false; }
 });
 
@@ -60,10 +60,10 @@ intentForm?.addEventListener('submit', async event => {
     const result = await demandRequest('intent', { token: proof.token,
       intent: new FormData(intentForm).get('intent'), offerVersion: experiment.offerVersion });
     if (result.stored !== true) throw new Error('not_stored');
-    if (status) status.textContent = 'Kiitos! Vastauksesi on tallennettu. Tämä ei ole tilaus.';
+    if (status) status.textContent = fi.thankYou.intent.success;
     intentForm.querySelectorAll<HTMLInputElement>('input').forEach(input => input.disabled = true);
   } catch {
-    if (status) status.textContent = 'Vastausta ei voitu tallentaa. Yritä uudelleen.';
+    if (status) status.textContent = fi.thankYou.intent.error;
     if (button) button.disabled = false;
   }
 });
@@ -83,7 +83,7 @@ if ((returned || proof) && form) {
     const allowed = measurementAllowed();
     form.querySelectorAll<HTMLInputElement | HTMLButtonElement>('input, button').forEach(control => control.disabled = !allowed);
     updateGenres();
-    if (formStatus) formStatus.textContent = allowed ? '' : 'Salli vapaaehtoinen mittaus vastataksesi kyselyyn. Listalle liittyminen ei edellytä mittausta.';
+    if (formStatus) formStatus.textContent = allowed ? '' : fi.thankYou.measurementRequired;
   };
   document.addEventListener('splatter:measurement-choice', updateMeasurement);
   updateMeasurement();

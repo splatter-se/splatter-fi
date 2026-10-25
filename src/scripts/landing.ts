@@ -4,6 +4,7 @@ import { setupPrivacyDialog } from "./privacy";
 import { setupMeasurement, measurementAllowed } from '../lib/measurement';
 import { demandRequest, saveProof, clearProof } from '../lib/demand-api';
 import { experiment, offerReady } from '../config/experiment';
+import { siteConfig } from '../config/site';
 
 const form = document.querySelector<HTMLFormElement>("[data-signup-form]");
 const email = document.querySelector<HTMLInputElement>("#mce-EMAIL");
@@ -76,13 +77,13 @@ form?.addEventListener("submit", async (event) => {
       if (result.state !== 'check_email') throw new Error('invalid_response');
       clearProof();
       if (typeof result.token === 'string' && !saveProof(result.token)) {
-        if (status) status.textContent = 'Ilmoittautuminen lähetettiin. Vahvista sähköpostiosoitteesi saamastasi viestistä. Selaimesi estää vahvistuksen tarkistamisen tässä välilehdessä; voit ottaa yhteyttä osoitteeseen hej@splatter.se.';
-        if (button) { const label = button.querySelector('span'); if (label) label.textContent = 'Lähetetty'; }
+        if (status) status.textContent = fi.landing.sentWithoutProof(siteConfig.contactEmail);
+        if (button) { const label = button.querySelector('span'); if (label) label.textContent = fi.landing.sent; }
         return;
       }
       window.location.assign('/kiitos');
     } catch {
-      if (status) status.textContent = 'Ilmoittautumista ei voitu lähettää. Yritä hetken kuluttua uudelleen.';
+      if (status) status.textContent = fi.landing.signupError;
       if (button) { button.disabled = false; const label = button.querySelector('span'); if (label) label.textContent = fi.landing.submit; }
       void track('finland_signup_error', { reason: 'request_failed' });
     }

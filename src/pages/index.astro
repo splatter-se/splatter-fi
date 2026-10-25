@@ -87,9 +87,9 @@ const attributionFields = Object.entries(mailchimpConfig.attributionFields).filt
             <aside class="signup-card" id="ilmoitus" aria-labelledby="signup-title">
               <p class="card-kicker">{fi.landing.cardKicker}</p>
               <h2 id="signup-title">{fi.landing.formHeading}</h2>
-              {offerReady && <><p class="offer-price">{monthlyPrice}<span> / kuukausi</span></p><p class="card-copy">{fi.landing.offerSummary}</p></>}
+              {offerReady && <><p class="offer-price">{monthlyPrice}<span>{fi.offer.priceSuffix}</span></p><p class="card-copy">{fi.landing.offerSummary}</p></>}
               <p class="card-copy">{fi.landing.formDescription}</p>
-              {offerReady && <p class="form-note">Ilmoittautuminen on maksutonta eikä sido tilaukseen.</p>}
+              {offerReady && <p class="form-note">{fi.landing.registrationNote}</p>}
               <form
                 id="signup-form"
                 class="signup-form"
