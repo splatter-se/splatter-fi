@@ -60,10 +60,13 @@ registreringar.
 
 ## Välkomstmejl och kontaktfrekvens
 
-Aktivera sekvensen i Mailchimp, inte i sajtkoden:
+Färdig finsk copy, ämnesrader, förhandsvisningar och kontrollista finns i
+[`finland-mailchimp-copy.md`](finland-mailchimp-copy.md). Aktivera sekvensen i
+Mailchimp, inte i sajtkoden:
 
-1. Direkt: bekräfta registreringen, tacka och länka till
-   `https://splatter.fi/kiitos` om personen inte redan svarat på frågorna.
+1. Direkt: bekräfta registreringen och tacka. Be mottagaren återvända till den
+   ursprungliga fliken om den fortfarande är öppen och frågorna inte är besvarade.
+   En generell mejllänk till `/kiitos` kan inte återställa flikens anonyma bevis.
 2. Efter cirka sju dagar: ställ en enda kort fråga om filmer eller genrer som
    saknas i Finland.
 3. Därefter: endast några få relevanta utvecklingsuppdateringar per år.
